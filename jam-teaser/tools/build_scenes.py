@@ -1,7 +1,7 @@
 """Writes compositions/*.html for the teaser. Re-run after editing SCENES; the
 output files are plain HyperFrames scenes and can also be edited directly."""
-NOTE: this was the first-pass scaffold. The scenes were then edited in place (colour grades via
-`hyperframes media-treatment`, end-card layout, kicker backing). Re-running this OVERWRITES those edits.
+# NOTE: this was the first-pass scaffold. The scenes were then edited in place (colour grades via
+# `hyperframes media-treatment`, end-card layout, kicker backing). Re-running this OVERWRITES those edits.
 import json, pathlib
 OUT = pathlib.Path(__file__).resolve().parent.parent / "compositions"
 
