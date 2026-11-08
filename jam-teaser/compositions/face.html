@@ -1,0 +1,49 @@
+<template>
+  <style>
+    #root { position: absolute; inset: 0; overflow: hidden; background: #03060c; }
+    #face-shake, #face-cam { position: absolute; inset: 0; }
+    #face-img { position: absolute; left: 0; top: 0; width: 1080px; height: 1920px; object-fit: cover; }
+    #face-scrim { position: absolute; inset: 0;
+      background: linear-gradient(180deg, rgba(3,6,12,.55) 0%, rgba(3,6,12,0) 22%, rgba(3,6,12,0) 42%,
+                  rgba(3,6,12,.62) 58%, rgba(3,6,12,.70) 70%, rgba(3,6,12,.25) 86%, rgba(3,6,12,.55) 100%); }
+    #face-sweep { position: absolute; top: -200px; left: 0; width: 520px; height: 2320px;
+      background: linear-gradient(90deg, rgba(150,200,255,0) 0%, rgba(170,215,255,.28) 45%, rgba(255,236,210,.40) 50%, rgba(170,215,255,.28) 55%, rgba(150,200,255,0) 100%);
+      mix-blend-mode: screen; }
+    #face-text { position: absolute; left: 54px; right: 54px; top: 1090px; text-align: center; }
+    #face-kicker { font-family: Montserrat, sans-serif; display: inline-block; padding: 10px 6px 10px 22px; background: rgba(3,6,12,.62); border-radius: 4px; font-weight: 700; font-size: 34px; letter-spacing: .34em;
+      color: #e0ab72; text-shadow: 0 2px 18px rgba(0,0,0,.8); margin-bottom: 18px; }
+    #face-rule { width: 140px; height: 3px; margin: 0 auto 22px; background: linear-gradient(90deg, rgba(224,171,114,0), #e0ab72, rgba(224,171,114,0)); }
+    .face-big { font-family: "League Gothic", sans-serif; font-size: 210px; line-height: 1; letter-spacing: .015em;
+      color: #f5f2ec; text-shadow: 0 10px 50px rgba(0,0,0,.75), 0 0 2px rgba(0,0,0,.6); }
+    
+  </style>
+  <div data-hf-id="hf-muoe" id="root" data-composition-id="face" data-width="1080" data-height="1920">
+    <div data-hf-id="hf-z8e3" id="face-shake"><div data-hf-id="hf-03c0" id="face-cam">
+      <img data-color-grading="{&quot;preset&quot;:null,&quot;intensity&quot;:1,&quot;adjust&quot;:{&quot;exposure&quot;:-0.12,&quot;contrast&quot;:0.26,&quot;highlights&quot;:-0.3,&quot;shadows&quot;:0.04,&quot;whites&quot;:0,&quot;blacks&quot;:-0.16,&quot;temperature&quot;:-0.14,&quot;tint&quot;:0.02,&quot;vibrance&quot;:0.05,&quot;saturation&quot;:-0.14},&quot;details&quot;:{&quot;vignette&quot;:0.38,&quot;vignetteMidpoint&quot;:0.5,&quot;vignetteRoundness&quot;:0,&quot;vignetteFeather&quot;:0.7,&quot;grain&quot;:0.12,&quot;grainSize&quot;:0.3,&quot;grainRoughness&quot;:0.5},&quot;effects&quot;:{&quot;blur&quot;:0,&quot;pixelate&quot;:0,&quot;chromaBleed&quot;:0,&quot;tapeDamage&quot;:0,&quot;tapeTracking&quot;:0,&quot;tapeNoise&quot;:1,&quot;tapeSpeed&quot;:0.5,&quot;filmArtifacts&quot;:0,&quot;halftone&quot;:0,&quot;halftoneSize&quot;:0,&quot;twoInkPrint&quot;:0,&quot;twoInkPrintSize&quot;:0,&quot;ascii&quot;:0,&quot;asciiSize&quot;:0.06578947368421052,&quot;asciiInvert&quot;:0,&quot;asciiStyle&quot;:0,&quot;asciiColor&quot;:1,&quot;asciiRotation&quot;:0,&quot;dither&quot;:0,&quot;ditherSize&quot;:0,&quot;bloom&quot;:0,&quot;bloomRadius&quot;:8,&quot;monoScreen&quot;:0,&quot;monoScreenSize&quot;:0,&quot;monoScreenAngle&quot;:0,&quot;monoScreenSpread&quot;:0,&quot;monoScreenShape&quot;:0,&quot;monoScreenInvert&quot;:0,&quot;scanlines&quot;:0,&quot;scanlineCount&quot;:0,&quot;scanlineSoftness&quot;:0,&quot;chromaticAberration&quot;:0,&quot;chromaticAngle&quot;:0,&quot;crtCurvature&quot;:0,&quot;digitalGlitch&quot;:0,&quot;digitalGlitchColorSplit&quot;:0,&quot;digitalGlitchLineTear&quot;:0,&quot;digitalGlitchPixelate&quot;:0,&quot;digitalGlitchBlockAmount&quot;:0,&quot;digitalGlitchBlockDisplacement&quot;:0,&quot;digitalGlitchBlockOpacity&quot;:0,&quot;digitalGlitchSpeed&quot;:0,&quot;engraving&quot;:0,&quot;engravingSpacing&quot;:0.4117647058823529,&quot;engravingMinThickness&quot;:0.2,&quot;engravingMaxThickness&quot;:0.4571428571428572,&quot;engravingAngle&quot;:0.25,&quot;engravingContrast&quot;:0.4666666666666667,&quot;engravingSharpness&quot;:0.59,&quot;engravingWave&quot;:0.2,&quot;engravingWaveFrequency&quot;:0.2222222222222222,&quot;crosshatch&quot;:0,&quot;crosshatchSpacing&quot;:0.28,&quot;crosshatchThickness&quot;:0.25,&quot;crosshatchAngle&quot;:0.25,&quot;crosshatchContrast&quot;:0.3333333333333333,&quot;crosshatchEdges&quot;:0.5,&quot;crosshatchLineWeight&quot;:0,&quot;crosshatchWave&quot;:0.33,&quot;crosshatchWaveFrequency&quot;:0.2222222222222222,&quot;kuwahara&quot;:0,&quot;kuwaharaRadius&quot;:0.14285714285714285,&quot;kuwaharaSharpness&quot;:0.3125,&quot;kuwaharaSaturation&quot;:0.5},&quot;lut&quot;:null,&quot;colorSpace&quot;:&quot;rec709&quot;,&quot;wheels&quot;:{&quot;shadows&quot;:{&quot;hue&quot;:210,&quot;amount&quot;:0.14,&quot;level&quot;:-0.02},&quot;midtones&quot;:{&quot;hue&quot;:200,&quot;amount&quot;:0.04,&quot;level&quot;:0},&quot;highlights&quot;:{&quot;hue&quot;:32,&quot;amount&quot;:0.09,&quot;level&quot;:0.02}}}" data-hf-id="hf-sr0j" id="face-img" src="assets/img/face.jpg" alt="">
+    </div></div>
+    <div data-hf-id="hf-y92n" id="face-scrim"></div>
+    <div data-hf-id="hf-m8ys" id="face-sweep" data-layout-ignore=""></div>
+    <div data-hf-id="hf-7mae" id="face-text">
+      <div data-hf-id="hf-0hcp" id="face-kicker">PILIHAN RAMAI</div><div data-hf-id="hf-om19" id="face-rule"></div>
+      <div data-hf-id="hf-nh13" id="face-big0" class="face-big">WAJIB ADA.</div>
+    </div>
+    
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+    const D = 0.7;
+    // camera push + drift across the whole shot
+    tl.fromTo("#face-cam", { scale: 1.04, x: 0 }, { scale: 1.16, x: 0, duration: D, ease: "none" }, 0);
+    // impact shake on the cut
+    tl.fromTo("#face-shake", { x: 16, y: -12, rotation: 0.4 }, { x: 0, y: 0, rotation: 0, duration: 0.22, ease: "elastic.out(1.1, 0.35)" }, 0);
+    // light sweep across the product
+    tl.fromTo("#face-sweep", { x: -700, rotation: 14 }, { x: 1300, rotation: 14, duration: 0.5, ease: "power2.inOut" }, 0.05);
+    tl.fromTo("#face-big0", { opacity: 0, scale: 1.55, filter: "blur(14px)" }, { opacity: 1, scale: 1, filter: "blur(0px)", duration: 0.2, ease: "expo.out" }, 0.04);
+    tl.fromTo("#face-kicker", { opacity: 0, scale: 1.25, y: -10 }, { opacity: 1, scale: 1, y: 0, duration: 0.3, ease: "power3.out" }, 0.1);
+    tl.fromTo("#face-rule", { scaleX: 0 }, { scaleX: 1, duration: 0.3, ease: "power3.out" }, 0.12);
+    tl.fromTo("#face-text", { scale: 1 }, { scale: 1.035, duration: 0.7, ease: "none" }, 0);
+    
+    tl.fromTo("#face-shake", { scale: 1 }, { scale: 1.12, duration: 0.09, ease: "power2.in" }, 0.61);
+    window.__timelines["face"] = tl;
+  </script>
+</template>
