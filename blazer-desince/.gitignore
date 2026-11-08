@@ -1,0 +1,5 @@
+.hyperframes/
+renders/
+assets/raw/*.wav
+grade-compare.png
+node_modules/

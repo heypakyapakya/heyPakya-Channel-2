@@ -1,0 +1,268 @@
+<template>
+  <style>
+    #root {
+      position: absolute;
+      inset: 0;
+      font-family: "Montserrat", sans-serif;
+    }
+    /* ---- product tag (S2) ---- */
+    #co-tag {
+      position: absolute;
+      left: 60px;
+      top: 880px;
+      width: 640px;
+      height: 200px;
+    }
+    #co-tag .card {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      gap: 26px;
+      padding: 22px 30px 22px 22px;
+      border-radius: 28px;
+      background: rgba(247, 241, 232, 0.94);
+      box-shadow: 0 18px 50px rgba(0, 0, 0, 0.28);
+    }
+    #co-tag .thumb {
+      width: 112px;
+      height: 156px;
+      border-radius: 16px;
+      background: url("assets/img/product.png") 50% 18% / 260% auto no-repeat #e7e3e6;
+      flex: none;
+    }
+    #co-tag .brand {
+      font-size: 50px;
+      font-weight: 900;
+      letter-spacing: 0.22em;
+      color: #1b1612;
+    }
+    #co-tag .sub {
+      margin-top: 8px;
+      font-size: 29px;
+      font-weight: 600;
+      color: #6f5a4b;
+    }
+    #co-tag .line {
+      margin-top: 14px;
+      height: 4px;
+      width: 120px;
+      border-radius: 2px;
+      background: #c9a27e;
+    }
+    /* ---- feature chips (S3-S5) ---- */
+    .feat {
+      position: absolute;
+      left: 60px;
+      height: 96px;
+      width: 420px;
+    }
+    .feat .pill {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      padding: 0 30px 0 18px;
+      border-radius: 999px;
+      background: rgba(247, 241, 232, 0.94);
+      box-shadow: 0 14px 40px rgba(0, 0, 0, 0.25);
+      font-size: 44px;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      color: #1b1612;
+    }
+    .feat .tick {
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      background: #1b1612;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex: none;
+    }
+    #co-f1 {
+      top: 760px;
+    }
+    #co-f2 {
+      top: 878px;
+    }
+    #co-f3 {
+      top: 996px;
+    }
+    /* ---- casual -> smart (S6) ---- */
+    #co-swap {
+      position: absolute;
+      left: 0;
+      top: 860px;
+      width: 1080px;
+      height: 150px;
+    }
+    #co-swap .row {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 26px;
+    }
+    #co-swap .w {
+      padding: 16px 34px;
+      border-radius: 999px;
+      font-size: 50px;
+      font-weight: 800;
+      letter-spacing: 0.1em;
+    }
+    #co-swap .old {
+      background: rgba(20, 16, 13, 0.6);
+      color: #d9d1c6;
+      position: relative;
+    }
+    #co-swap .strike {
+      position: absolute;
+      left: 22px;
+      right: 22px;
+      top: 50%;
+      height: 6px;
+      margin-top: -3px;
+      background: #c9a27e;
+      border-radius: 3px;
+      transform-origin: 0 50%;
+    }
+    #co-swap .arrow {
+      font-size: 60px;
+      font-weight: 900;
+      color: #fff;
+      text-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+    }
+    #co-swap .new {
+      background: #f7f1e8;
+      color: #1b1612;
+    }
+    /* ---- CTA (S9) ---- */
+    #co-cta {
+      position: absolute;
+      left: 56px;
+      top: 930px;
+      width: 640px;
+      height: 400px;
+    }
+    #co-cta .btn {
+      position: absolute;
+      left: 0;
+      top: 0;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      padding: 20px 36px 20px 22px;
+      border-radius: 999px;
+      background: #ffc629;
+      box-shadow: 0 16px 44px rgba(0, 0, 0, 0.3);
+      font-size: 42px;
+      font-weight: 900;
+      letter-spacing: 0.04em;
+      color: #1b1612;
+      white-space: nowrap;
+    }
+    #co-cta .bagwrap {
+      width: 76px;
+      height: 76px;
+      border-radius: 50%;
+      background: #1b1612;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    #co-cta .arrowdown {
+      position: absolute;
+      left: 30px;
+      top: 140px;
+      width: 120px;
+      height: 250px;
+    }
+  </style>
+  <div id="root" data-composition-id="callouts" data-width="1080" data-height="1920" data-layout-allow-overlap>
+    <!-- S2: product tag (abs 6.85 -> local 4.15) -->
+    <div id="co-tag" class="clip" data-start="4.15" data-duration="1.62">
+      <div class="card">
+        <div class="thumb"></div>
+        <div>
+          <div class="brand" data-var-text="brand">DESINCE</div>
+          <div class="sub">Blazer Wanita · Mesra Hijab</div>
+          <div class="line"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- S3-S5: features -->
+    <div id="co-f1" class="feat clip" data-start="6.42" data-duration="3.1">
+      <div class="pill">
+        <div class="tick"><svg width="34" height="34" viewBox="0 0 24 24"><path d="M4 12.5l5 5L20 6.5" fill="none" stroke="#f7f1e8" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" /></svg></div>
+        KEMAS
+      </div>
+    </div>
+    <div id="co-f2" class="feat clip" data-start="7.02" data-duration="2.5">
+      <div class="pill">
+        <div class="tick"><svg width="34" height="34" viewBox="0 0 24 24"><path d="M4 12.5l5 5L20 6.5" fill="none" stroke="#f7f1e8" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" /></svg></div>
+        ANGGUN
+      </div>
+    </div>
+    <div id="co-f3" class="feat clip" data-start="8.77" data-duration="0.75">
+      <div class="pill">
+        <div class="tick"><svg width="34" height="34" viewBox="0 0 24 24"><path d="M4 12.5l5 5L20 6.5" fill="none" stroke="#f7f1e8" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" /></svg></div>
+        SELESA
+      </div>
+    </div>
+
+    <!-- S6: kasual -> smart (abs 12.6 -> local 9.9) -->
+    <div id="co-swap" class="clip" data-start="9.9" data-duration="1.4">
+      <div class="row">
+        <div class="w old">KASUAL<div class="strike"></div></div>
+        <div class="arrow">→</div>
+        <div class="w new">SMART</div>
+      </div>
+    </div>
+
+    <!-- S9: CTA (abs 16.3 -> local 13.6) -->
+    <div id="co-cta" class="clip" data-start="13.6" data-duration="1.4">
+      <div class="btn">
+        <div class="bagwrap">
+          <svg width="44" height="44" viewBox="0 0 24 24"><path d="M5 8h14l-1.2 12.2a1.5 1.5 0 0 1-1.5 1.3H7.7a1.5 1.5 0 0 1-1.5-1.3L5 8z" fill="#ffc629" /><path d="M8.5 10V7a3.5 3.5 0 0 1 7 0v3" fill="none" stroke="#ffc629" stroke-width="2" stroke-linecap="round" /></svg>
+        </div>
+        KLIK BEG KUNING
+      </div>
+      <svg class="arrowdown" viewBox="0 0 120 250"><path d="M60 8 C 64 90, 52 170, 22 226" fill="none" stroke="#fff" stroke-width="9" stroke-linecap="round" /><path d="M12 194 L 20 232 L 56 222" fill="none" stroke="#fff" stroke-width="9" stroke-linecap="round" stroke-linejoin="round" /></svg>
+    </div>
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+
+    // product tag: card slides from the left with blur, settles
+    tl.fromTo("#co-tag .card", { x: -120, opacity: 0, filter: "blur(10px)" }, { x: 0, opacity: 1, filter: "blur(0px)", duration: 0.45, ease: "expo.out" }, 4.15);
+    tl.fromTo("#co-tag .line", { scaleX: 0 }, { scaleX: 1, duration: 0.5, ease: "power3.out", transformOrigin: "0 50%" }, 4.4);
+    tl.to("#co-tag .card", { x: -60, opacity: 0, filter: "blur(8px)", duration: 0.2, ease: "power2.in" }, 5.55);
+
+    // features: each pill pops on its word
+    [["#co-f1", 6.42], ["#co-f2", 7.02], ["#co-f3", 8.77]].forEach(([sel, t]) => {
+      tl.fromTo(sel + " .pill", { scale: 0.6, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.42, ease: "back.out(1.6)", transformOrigin: "0% 50%" }, t);
+      tl.fromTo(sel + " .tick", { rotation: -90, scale: 0.4 }, { rotation: 0, scale: 1, duration: 0.4, ease: "back.out(2)" }, t + 0.05);
+    });
+    tl.to(["#co-f1 .pill", "#co-f2 .pill", "#co-f3 .pill"], { x: -80, opacity: 0, filter: "blur(6px)", duration: 0.2, ease: "power2.in", stagger: 0.04 }, 9.3);
+
+    // kasual -> smart
+    tl.fromTo("#co-swap .old", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.3, ease: "power3.out" }, 9.9);
+    tl.fromTo("#co-swap .strike", { scaleX: 0 }, { scaleX: 1, duration: 0.25, ease: "power2.inOut" }, 10.45);
+    tl.fromTo("#co-swap .arrow", { opacity: 0, x: -20 }, { opacity: 1, x: 0, duration: 0.25, ease: "power3.out" }, 10.55);
+    tl.fromTo("#co-swap .new", { opacity: 0, scale: 1.4, filter: "blur(8px)" }, { opacity: 1, scale: 1, filter: "blur(0px)", duration: 0.3, ease: "expo.out" }, 10.7);
+    tl.to("#co-swap .row", { opacity: 0, filter: "blur(8px)", duration: 0.18, ease: "power2.in" }, 11.18);
+
+    // CTA: button pops, arrow draws toward the shop basket
+    tl.fromTo("#co-cta .btn", { scale: 0.5, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.45, ease: "back.out(1.7)", transformOrigin: "0% 50%" }, 13.6);
+    tl.fromTo("#co-cta .arrowdown", { opacity: 0, y: -30 }, { opacity: 1, y: 0, duration: 0.35, ease: "power3.out" }, 13.85);
+    tl.to("#co-cta .arrowdown", { y: 18, duration: 0.3, ease: "power1.inOut", yoyo: true, repeat: 2 }, 14.2);
+    tl.to("#co-cta .bagwrap", { rotation: -12, duration: 0.12, ease: "power1.inOut", yoyo: true, repeat: 3 }, 14.1);
+
+    window.__timelines["callouts"] = tl;
+  </script>
+</template>

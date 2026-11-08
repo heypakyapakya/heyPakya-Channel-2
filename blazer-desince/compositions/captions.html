@@ -1,0 +1,66 @@
+<template>
+  <style>
+    #root {
+      position: absolute;
+      inset: 0;
+      font-family: "Montserrat", sans-serif;
+    }
+    .cap {
+      position: absolute;
+      left: 0;
+      top: 1190px;
+      width: 1080px;
+      text-align: center;
+      overflow: visible;
+    }
+    .cap .t {
+      display: inline-block;
+      padding: 10px 28px 14px;
+      border-radius: 22px;
+      background: rgba(18, 14, 11, 0.42);
+      color: #fff;
+      font-size: 66px;
+      font-weight: 800;
+      line-height: 1.12;
+      letter-spacing: -0.01em;
+      text-shadow: 0 3px 14px rgba(0, 0, 0, 0.35);
+    }
+    .cap b {
+      color: #ffd98a;
+      font-weight: 900;
+    }
+  </style>
+  <div id="root" data-composition-id="captions" data-width="1080" data-height="1920">
+    <!-- times are local: absolute minus 2.7 s -->
+    <div id="c1" class="cap clip" data-start="0.1" data-duration="0.75"><span class="t">Pernahkah anda rasa</span></div>
+    <div id="c2" class="cap clip" data-start="0.85" data-duration="0.77"><span class="t">pakaian sudah <b>cantik</b>,</span></div>
+    <div id="c3" class="cap clip" data-start="1.75" data-duration="0.9"><span class="t">tetapi seperti ada</span></div>
+    <div id="c4" class="cap clip" data-start="2.65" data-duration="1.1"><span class="t">sesuatu yang <b>kurang?</b></span></div>
+    <div id="c5" class="cap clip" data-start="3.9" data-duration="0.75"><span class="t">Cuba blazer</span></div>
+    <div id="c6" class="cap clip" data-start="4.65" data-duration="1.07"><span class="t"><b>DESINCE</b> ini.</span></div>
+    <div id="c7" class="cap clip" data-start="5.85" data-duration="1.07"><span class="t">Terus nampak <b>kemas</b>,</span></div>
+    <div id="c8" class="cap clip" data-start="6.98" data-duration="0.64"><span class="t"><b>anggun</b></span></div>
+    <div id="c9" class="cap clip" data-start="7.7" data-duration="1.8"><span class="t">dan tetap <b>selesa</b>.</span></div>
+    <div id="c10" class="cap clip" data-start="9.67" data-duration="0.73"><span class="t">Daripada kasual</span></div>
+    <div id="c11" class="cap clip" data-start="10.4" data-duration="0.88"><span class="t">kepada gaya <b>smart</b>,</span></div>
+    <div id="c12" class="cap clip" data-start="11.35" data-duration="0.7"><span class="t"><b>satu blazer</b> sahaja</span></div>
+    <div id="c13" class="cap clip" data-start="12.05" data-duration="0.71"><span class="t">sudah memadai.</span></div>
+    <div id="c14" class="cap clip" data-start="12.82" data-duration="0.7"><span class="t">Mahu <b>satu?</b></span></div>
+    <div id="c15" class="cap clip" data-start="13.58" data-duration="0.67"><span class="t">Klik <b>beg kuning</b></span></div>
+    <div id="c16" class="cap clip" data-start="14.25" data-duration="0.75"><span class="t"><b>sekarang!</b></span></div>
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+    const groups = [
+      ["#c1", 0.1, 0.85], ["#c2", 0.85, 1.62], ["#c3", 1.75, 2.65], ["#c4", 2.65, 3.75],
+      ["#c5", 3.9, 4.65], ["#c6", 4.65, 5.72], ["#c7", 5.85, 6.92], ["#c8", 6.98, 7.62],
+      ["#c9", 7.7, 9.5], ["#c10", 9.67, 10.4], ["#c11", 10.4, 11.28], ["#c12", 11.35, 12.05],
+      ["#c13", 12.05, 12.76], ["#c14", 12.82, 13.52], ["#c15", 13.58, 14.25], ["#c16", 14.25, 15.0],
+    ];
+    groups.forEach(([sel, s, e]) => {
+      tl.fromTo(sel + " .t", { scale: 0.86, opacity: 0, y: 14 }, { scale: 1, opacity: 1, y: 0, duration: 0.2, ease: "back.out(1.8)" }, s);
+      tl.to(sel + " .t", { opacity: 0, duration: 0.1, ease: "power2.in" }, e - 0.1);
+    });
+    window.__timelines["captions"] = tl;
+  </script>
+</template>

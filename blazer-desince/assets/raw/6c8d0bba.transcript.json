@@ -1,0 +1,74 @@
+[
+  {
+    "text": "Pernah",
+    "start": 0.04,
+    "end": 0.9,
+    "id": "w0"
+  },
+  {
+    "text": "tak",
+    "start": 0.91,
+    "end": 1.37,
+    "id": "w1"
+  },
+  {
+    "text": "rasa",
+    "start": 1.37,
+    "end": 2,
+    "id": "w2"
+  },
+  {
+    "text": "outfit",
+    "start": 2,
+    "end": 2.85,
+    "id": "w3"
+  },
+  {
+    "text": "dah",
+    "start": 2.85,
+    "end": 3.27,
+    "id": "w4"
+  },
+  {
+    "text": "okey",
+    "start": 3.27,
+    "end": 3.83,
+    "id": "w5"
+  },
+  {
+    "text": "tapi",
+    "start": 3.83,
+    "end": 4.4,
+    "id": "w6"
+  },
+  {
+    "text": "macam",
+    "start": 4.4,
+    "end": 5.11,
+    "id": "w7"
+  },
+  {
+    "text": "ada",
+    "start": 5.11,
+    "end": 5.49,
+    "id": "w8"
+  },
+  {
+    "text": "sesuatu",
+    "start": 5.6,
+    "end": 6.48,
+    "id": "w9"
+  },
+  {
+    "text": "yang",
+    "start": 6.51,
+    "end": 7.08,
+    "id": "w10"
+  },
+  {
+    "text": "kurang?",
+    "start": 7.08,
+    "end": 8,
+    "id": "w11"
+  }
+]

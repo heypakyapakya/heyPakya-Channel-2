@@ -1,0 +1,114 @@
+<template>
+  <style>
+    #root {
+      position: absolute;
+      inset: 0;
+      font-family: "Montserrat", sans-serif;
+    }
+    #hook-scrim {
+      position: absolute;
+      left: 0;
+      top: 860px;
+      width: 1080px;
+      height: 620px;
+      background: linear-gradient(180deg, rgba(14, 11, 9, 0) 0%, rgba(14, 11, 9, 0.58) 38%, rgba(14, 11, 9, 0.58) 70%, rgba(14, 11, 9, 0) 100%);
+    }
+    .chip {
+      position: absolute;
+      left: 72px;
+      top: 230px;
+      padding: 14px 30px 14px 26px;
+      border-radius: 999px;
+      font-size: 34px;
+      font-weight: 800;
+      letter-spacing: 0.16em;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .chip i {
+      display: block;
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+    }
+    #hook-before {
+      background: rgba(20, 16, 13, 0.62);
+      color: #e9e2d8;
+    }
+    #hook-before i {
+      background: #9a948d;
+    }
+    #hook-after {
+      background: #f7f1e8;
+      color: #1b1612;
+    }
+    #hook-after i {
+      background: #c9a27e;
+    }
+    .hline {
+      position: absolute;
+      left: 0;
+      width: 1080px;
+      text-align: center;
+      color: #fff;
+      text-shadow: 0 6px 30px rgba(0, 0, 0, 0.45);
+    }
+    #hook-q {
+      top: 1010px;
+      font-size: 112px;
+      font-weight: 900;
+      letter-spacing: -0.02em;
+    }
+    #hook-a1 {
+      top: 960px;
+      font-size: 168px;
+      font-weight: 900;
+      letter-spacing: -0.03em;
+      line-height: 1;
+    }
+    #hook-a2 {
+      top: 1150px;
+      font-family: "Playfair Display", serif;
+      font-style: italic;
+      font-weight: 700;
+      font-size: 104px;
+      color: #f3dcc2;
+      line-height: 1;
+    }
+    #hook-a1 span,
+    #hook-a2 span {
+      display: inline-block;
+    }
+  </style>
+  <div id="root" data-composition-id="hook" data-width="1080" data-height="1920">
+    <div id="hook-scrim"></div>
+
+    <div id="hook-before" class="chip clip" data-start="0" data-duration="0.9"><i></i>SEBELUM</div>
+    <div id="hook-q" class="hline clip" data-start="0" data-duration="0.9">Gaya biasa?</div>
+
+    <div id="hook-after" class="chip clip" data-start="0.9" data-duration="1.8"><i></i>SELEPAS</div>
+    <div id="hook-a1" class="hline clip" data-start="0.9" data-duration="1.8">
+      <span>1</span> <span>BLAZER.</span>
+    </div>
+    <div id="hook-a2" class="hline clip" data-start="0.9" data-duration="1.8">
+      <span>Terus</span> <span>elegan.</span>
+    </div>
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+    // frame 0 already carries the line (thumbnail), then a small settle
+    tl.fromTo("#hook-q", { scale: 1.06 }, { scale: 1, duration: 0.6, ease: "expo.out" }, 0);
+    tl.fromTo("#hook-scrim", { opacity: 1 }, { opacity: 1, duration: 0.01 }, 0);
+
+    // reveal: words slam in on the flash
+    tl.fromTo("#hook-a1 span", { opacity: 0, scale: 1.6, filter: "blur(10px)" }, { opacity: 1, scale: 1, filter: "blur(0px)", duration: 0.28, ease: "expo.out", stagger: 0.09 }, 0.92);
+    tl.fromTo("#hook-a2 span", { opacity: 0, y: 30, filter: "blur(8px)" }, { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.4, ease: "power4.out", stagger: 0.1 }, 1.25);
+    tl.fromTo("#hook-after", { x: -40, opacity: 0 }, { x: 0, opacity: 1, duration: 0.35, ease: "expo.out" }, 0.95);
+
+    // leave clean into the story
+    tl.to(["#hook-a1", "#hook-a2", "#hook-after"], { opacity: 0, filter: "blur(8px)", duration: 0.18, ease: "power2.in" }, 2.5);
+    tl.to("#hook-scrim", { opacity: 0, duration: 0.2, ease: "power2.in" }, 2.48);
+    window.__timelines["hook"] = tl;
+  </script>
+</template>

@@ -1,0 +1,98 @@
+[
+  {
+    "text": "Dari",
+    "start": 0.08,
+    "end": 0.37,
+    "id": "w0"
+  },
+  {
+    "text": "kasual",
+    "start": 0.37,
+    "end": 0.93,
+    "id": "w1"
+  },
+  {
+    "text": "ke",
+    "start": 0.93,
+    "end": 1.06,
+    "id": "w2"
+  },
+  {
+    "text": "smart",
+    "start": 1.17,
+    "end": 1.59,
+    "id": "w3"
+  },
+  {
+    "text": "look",
+    "start": 1.59,
+    "end": 2,
+    "id": "w4"
+  },
+  {
+    "text": "satu",
+    "start": 2,
+    "end": 2.36,
+    "id": "w5"
+  },
+  {
+    "text": "blazer",
+    "start": 2.7,
+    "end": 2.99,
+    "id": "w6"
+  },
+  {
+    "text": "je",
+    "start": 2.99,
+    "end": 3.17,
+    "id": "w7"
+  },
+  {
+    "text": "dah",
+    "start": 3.18,
+    "end": 3.49,
+    "id": "w8"
+  },
+  {
+    "text": "cukup.",
+    "start": 3.49,
+    "end": 4,
+    "id": "w9"
+  },
+  {
+    "text": "Nak",
+    "start": 4.08,
+    "end": 4.3,
+    "id": "w10"
+  },
+  {
+    "text": "satu?",
+    "start": 4.3,
+    "end": 5,
+    "id": "w11"
+  },
+  {
+    "text": "Klik",
+    "start": 5,
+    "end": 5.33,
+    "id": "w12"
+  },
+  {
+    "text": "beg",
+    "start": 5.4,
+    "end": 5.61,
+    "id": "w13"
+  },
+  {
+    "text": "kuning",
+    "start": 5.7,
+    "end": 6.21,
+    "id": "w14"
+  },
+  {
+    "text": "sekarang.",
+    "start": 6.21,
+    "end": 7,
+    "id": "w15"
+  }
+]
