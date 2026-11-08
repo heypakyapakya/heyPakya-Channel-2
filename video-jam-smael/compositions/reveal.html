@@ -1,0 +1,98 @@
+<template>
+  <style>
+    #root {
+      position: absolute;
+      inset: 0;
+    }
+    #rv-shade {
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 0;
+      height: 760px;
+      background: linear-gradient(180deg, rgba(3, 5, 10, 0.78) 0%, rgba(3, 5, 10, 0.45) 55%, rgba(3, 5, 10, 0) 100%);
+      opacity: 0;
+    }
+    #rv-block {
+      position: absolute;
+      left: 40px;
+      right: 120px;
+      top: 230px;
+      text-align: center;
+    }
+    #rv-kicker {
+      font-family: "Montserrat", sans-serif;
+      font-weight: 700;
+      font-size: 34px;
+      letter-spacing: 0.42em;
+      color: #f2d6b8;
+      text-transform: uppercase;
+      opacity: 0;
+    }
+    #rv-brand {
+      margin-top: 8px;
+      font-family: "Montserrat", sans-serif;
+      font-weight: 900;
+      font-size: 196px;
+      line-height: 1;
+      letter-spacing: 0.08em;
+      opacity: 0;
+    }
+    #rv-brand-ink {
+      display: inline-block;
+      background: linear-gradient(100deg, #b9773f 0%, #f3c99d 30%, #fff4e6 45%, #e8b07a 60%, #a8662f 100%);
+      background-size: 260% 100%;
+      background-position: 100% 0;
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      filter: drop-shadow(0 10px 30px rgba(0, 0, 0, 0.55));
+    }
+    #rv-rule {
+      margin: 14px auto 0;
+      width: 520px;
+      height: 3px;
+      background: linear-gradient(90deg, transparent, #e8b07a, transparent);
+      transform-origin: 50% 50%;
+    }
+    #rv-sub {
+      margin-top: 18px;
+      font-family: "Montserrat", sans-serif;
+      font-weight: 700;
+      font-size: 38px;
+      letter-spacing: 0.16em;
+      color: #ffffff;
+      text-shadow: 0 2px 14px rgba(0, 0, 0, 0.85), 0 0 4px rgba(0, 0, 0, 0.9);
+      text-transform: uppercase;
+      opacity: 0;
+    }
+  </style>
+  <div
+    id="root"
+    data-composition-id="reveal"
+    data-width="1080"
+    data-height="1920"
+    data-composition-variables='[{"id":"brand","type":"string","label":"Jenama","default":"SMAEL"},{"id":"revealSub","type":"string","label":"Sub tajuk","default":"Jam Tangan Serba Baharu"}]'
+  >
+    <div id="rv-shade"></div>
+    <div id="rv-block">
+      <div id="rv-kicker">Memperkenalkan</div>
+      <div id="rv-brand"><span id="rv-brand-ink" data-var-text="brand">SMAEL</span></div>
+      <div id="rv-rule"></div>
+      <div id="rv-sub" data-var-text="revealSub">Jam Tangan Serba Baharu</div>
+    </div>
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+    tl.fromTo("#rv-shade", { opacity: 0 }, { opacity: 1, duration: 0.3, ease: "power2.out" }, 0.05);
+    tl.fromTo("#rv-kicker", { opacity: 0, y: 24, scale: 1.15 }, { opacity: 1, y: 0, scale: 1, duration: 0.45, ease: "power3.out" }, 0.08);
+    // Brand lands on the word "SMAEL" (2.49 s in the film = 0.85 s here)
+    tl.fromTo("#rv-brand", { opacity: 0, scale: 1.45, filter: "blur(14px)" }, { opacity: 1, scale: 1, filter: "blur(0px)", duration: 0.2, ease: "power4.out" }, 0.83);
+    tl.fromTo("#rv-brand-ink", { backgroundPosition: "100% 0" }, { backgroundPosition: "0% 0", duration: 1.0, ease: "power2.inOut" }, 0.9);
+    tl.fromTo("#rv-rule", { scaleX: 0 }, { scaleX: 1, duration: 0.4, ease: "power3.out" }, 0.95);
+    tl.fromTo("#rv-sub", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.35, ease: "power3.out" }, 1.05);
+    tl.to("#rv-block", { opacity: 0, y: -30, duration: 0.12, ease: "power2.in" }, 2.04);
+    tl.to("#rv-shade", { opacity: 0, duration: 0.12, ease: "power2.in" }, 2.04);
+    window.__timelines["reveal"] = tl;
+  </script>
+</template>

@@ -1,0 +1,175 @@
+<template>
+  <style>
+    #root {
+      position: absolute;
+      inset: 0;
+      font-family: "Montserrat", sans-serif;
+    }
+    /* part 1: CTA over the product shot */
+    #ct-shade {
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 0;
+      height: 760px;
+      background: linear-gradient(180deg, rgba(3, 5, 10, 0.8) 0%, rgba(3, 5, 10, 0.35) 65%, rgba(3, 5, 10, 0) 100%);
+      opacity: 0;
+    }
+    #ct-top {
+      position: absolute;
+      left: 40px;
+      right: 120px;
+      top: 250px;
+      text-align: center;
+      opacity: 0;
+    }
+    #ct-top-a {
+      font-weight: 900;
+      font-size: 84px;
+      line-height: 1;
+      white-space: nowrap;
+      color: #ffffff;
+      text-shadow: 0 10px 40px rgba(0, 0, 0, 0.6);
+    }
+    /* part 2: end card */
+    #ec {
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      background: radial-gradient(120% 70% at 50% 38%, #13254a 0%, #08101f 55%, #030509 100%);
+    }
+    #ec-brand {
+      position: absolute;
+      left: 40px;
+      right: 120px;
+      top: 210px;
+      text-align: center;
+      font-weight: 900;
+      font-size: 110px;
+      letter-spacing: 0.12em;
+      line-height: 1;
+    }
+    #ec-brand span {
+      background: linear-gradient(100deg, #b9773f 0%, #f3c99d 35%, #fff4e6 50%, #e8b07a 65%, #a8662f 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+    #ec-card {
+      position: absolute;
+      left: 90px;
+      top: 370px;
+      width: 900px;
+      height: 683px;
+      border-radius: 36px;
+      overflow: hidden;
+      box-shadow: 0 30px 80px rgba(0, 0, 0, 0.6), 0 0 0 2px rgba(232, 176, 122, 0.55);
+    }
+    #ec-img {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 900px;
+      height: 683px;
+      object-fit: cover;
+    }
+    #ec-pills {
+      position: absolute;
+      left: 40px;
+      right: 120px;
+      top: 1082px;
+      display: flex;
+      justify-content: center;
+      gap: 14px;
+    }
+    .pill {
+      padding: 10px 20px;
+      border-radius: 999px;
+      border: 2px solid rgba(232, 176, 122, 0.8);
+      color: #ffffff;
+      font-weight: 800;
+      font-size: 28px;
+      letter-spacing: 0.06em;
+      opacity: 0;
+    }
+    #ec-btn {
+      position: absolute;
+      left: 110px;
+      width: 760px;
+      top: 1170px;
+      height: 120px;
+      border-radius: 999px;
+      background: linear-gradient(180deg, #ffe066 0%, #ffc81a 100%);
+      box-shadow: 0 16px 50px rgba(255, 200, 26, 0.35);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 20px;
+      color: #111111;
+      font-weight: 900;
+      font-size: 46px;
+      letter-spacing: 0.02em;
+      opacity: 0;
+    }
+    #ec-btn svg {
+      width: 58px;
+      height: 58px;
+    }
+  </style>
+  <div
+    id="root"
+    data-composition-id="cta"
+    data-width="1080"
+    data-height="1920"
+    data-composition-variables='[{"id":"ctaLine","type":"string","label":"CTA","default":"DAPATKAN HARI INI"},{"id":"ctaButton","type":"string","label":"Butang","default":"TEKAN BAKUL KUNING"}]'
+  >
+    <div id="ct-shade"></div>
+    <div id="ct-top">
+      <div id="ct-top-a" data-var-text="ctaLine">DAPATKAN HARI INI</div>
+    </div>
+
+    <div id="ec">
+      <div id="ec-brand"><span>SMAEL</span></div>
+      <div id="ec-card">
+        <img id="ec-img" class="clip" src="assets/img/hero-watch.jpg" data-start="0.95" data-duration="2.12" alt="Jam tangan SMAEL kalis air" />
+      </div>
+      <div id="ec-pills">
+        <div class="pill" id="pill-1">LASAK</div>
+        <div class="pill" id="pill-2">KALIS AIR 50M</div>
+        <div class="pill" id="pill-3">BERGAYA</div>
+      </div>
+    </div>
+
+    <div id="ec-btn">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#111" d="M7 18a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm10 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4ZM1 2h3.3l.9 2H22l-3.6 8.1A2 2 0 0 1 16.6 13H8.1l-1 1.8V15h12v2H7a2 2 0 0 1-1.7-3l1.4-2.4L3 4H1V2Z" /></svg>
+      <span data-var-text="ctaButton">TEKAN BAKUL KUNING</span>
+    </div>
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+    // Part 1 — "Dapatkan hari ini" lands on the word (0.02)
+    tl.fromTo("#ct-shade", { opacity: 0 }, { opacity: 1, duration: 0.2, ease: "power2.out" }, 0);
+    tl.fromTo("#ct-top", { opacity: 0, scale: 1.3 }, { opacity: 1, scale: 1, duration: 0.24, ease: "back.out(2)" }, 0.02);
+    tl.fromTo("#ec-btn", { opacity: 0, y: 60, scale: 0.8 }, { opacity: 1, y: 0, scale: 1, duration: 0.3, ease: "back.out(2)" }, 0.22);
+    // button pulse (finite)
+    tl.to("#ec-btn", { scale: 1.06, duration: 0.16, ease: "power2.out" }, 0.62);
+    tl.to("#ec-btn", { scale: 1, duration: 0.16, ease: "power2.in" }, 0.78);
+
+    // Part 2 — end card
+    tl.fromTo("#ec", { opacity: 0 }, { opacity: 1, duration: 0.22, ease: "power2.out" }, 0.96);
+    tl.to(["#ct-top", "#ct-shade"], { opacity: 0, duration: 0.15, ease: "power2.in" }, 0.96);
+    tl.fromTo("#ec-brand", { opacity: 0, y: 30, scale: 1.12 }, { opacity: 1, y: 0, scale: 1, duration: 0.5, ease: "power3.out" }, 1.0);
+    tl.fromTo("#ec-card", { opacity: 0, y: 60, scale: 0.9 }, { opacity: 1, y: 0, scale: 1, duration: 0.45, ease: "power3.out" }, 1.0);
+    tl.fromTo("#ec-img", { scale: 1.12 }, { scale: 1.0, duration: 2.07, ease: "sine.out" }, 1.0);
+    ["#pill-1", "#pill-2", "#pill-3"].forEach((id, i) => {
+      tl.fromTo(id, { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.25, ease: "power3.out" }, 1.25 + i * 0.08);
+    });
+    tl.to("#ec-btn", { scale: 1.07, duration: 0.18, ease: "power2.out" }, 1.6);
+    tl.to("#ec-btn", { scale: 1, duration: 0.18, ease: "power2.in" }, 1.78);
+    tl.to("#ec-btn", { scale: 1.07, duration: 0.18, ease: "power2.out" }, 1.98);
+    tl.to("#ec-btn", { scale: 1, duration: 0.18, ease: "power2.in" }, 2.16);
+    tl.to("#ec-btn", { scale: 1.07, duration: 0.18, ease: "power2.out" }, 2.5);
+    tl.to("#ec-btn", { scale: 1, duration: 0.18, ease: "power2.in" }, 2.68);
+    window.__timelines["cta"] = tl;
+  </script>
+</template>

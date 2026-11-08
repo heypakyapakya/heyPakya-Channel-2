@@ -1,0 +1,83 @@
+<template>
+  <style>
+    #root {
+      position: absolute;
+      inset: 0;
+      font-family: "Montserrat", sans-serif;
+    }
+    #sp-shade {
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 0;
+      height: 820px;
+      background: linear-gradient(180deg, rgba(3, 5, 10, 0.8) 0%, rgba(3, 5, 10, 0.4) 65%, rgba(3, 5, 10, 0) 100%);
+      opacity: 0;
+    }
+    #sp-wrap {
+      position: absolute;
+      left: 60px;
+      right: 140px;
+      top: 220px;
+    }
+    #sp-title {
+      font-weight: 800;
+      font-size: 34px;
+      letter-spacing: 0.34em;
+      color: #e8b07a;
+      text-align: center;
+      opacity: 0;
+    }
+    #sp-grid {
+      margin-top: 22px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+    }
+    .tile {
+      padding: 22px 24px;
+      border-radius: 20px;
+      background: rgba(10, 16, 30, 0.78);
+      border: 2px solid rgba(232, 176, 122, 0.7);
+      box-shadow: 0 14px 36px rgba(0, 0, 0, 0.45);
+      opacity: 0;
+    }
+    .tile b {
+      display: block;
+      font-weight: 900;
+      font-size: 40px;
+      line-height: 1.05;
+      color: #ffffff;
+    }
+    .tile span {
+      display: block;
+      margin-top: 8px;
+      font-weight: 700;
+      font-size: 28px;
+      letter-spacing: 0.08em;
+      color: #cdd6e6;
+    }
+  </style>
+  <div id="root" data-composition-id="specs" data-width="1080" data-height="1920">
+    <div id="sp-shade"></div>
+    <div id="sp-wrap">
+      <div id="sp-title">KENAPA BERBEZA</div>
+      <div id="sp-grid">
+        <div id="tile-1" class="tile"><b>Mesin Jepun</b><span>KUARZA + DIGITAL</span></div>
+        <div id="tile-2" class="tile"><b>Lampu LED</b><span>JELAS WAKTU MALAM</span></div>
+        <div id="tile-3" class="tile"><b>Kronograf</b><span>1/100 SAAT</span></div>
+        <div id="tile-4" class="tile"><b>Dail 59 mm</b><span>HANYA 77 G</span></div>
+      </div>
+    </div>
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+    tl.fromTo("#sp-shade", { opacity: 0 }, { opacity: 1, duration: 0.25, ease: "power2.out" }, 0.0);
+    tl.fromTo("#sp-title", { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.25, ease: "power3.out" }, 0.08);
+    ["#tile-1", "#tile-2", "#tile-3", "#tile-4"].forEach((id, i) => {
+      tl.fromTo(id, { opacity: 0, y: 40, scale: 0.92 }, { opacity: 1, y: 0, scale: 1, duration: 0.3, ease: "back.out(1.8)" }, 0.14 + i * 0.1);
+    });
+    tl.to(["#sp-wrap", "#sp-shade"], { opacity: 0, duration: 0.12, ease: "power2.in" }, 1.65);
+    window.__timelines["specs"] = tl;
+  </script>
+</template>
