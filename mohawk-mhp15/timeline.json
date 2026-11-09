@@ -1,0 +1,212 @@
+{
+ "total": 31.66,
+ "shots": [
+  {
+   "id": "hook-glint",
+   "start": 0.0,
+   "dur": 1.2,
+   "rate": 1.0,
+   "kind": "broll"
+  },
+  {
+   "id": "hook-hero",
+   "start": 1.2,
+   "dur": 1.44,
+   "rate": 0.7,
+   "kind": "broll"
+  },
+  {
+   "id": "prob-buzz",
+   "start": 2.64,
+   "dur": 0.8,
+   "rate": 1.0,
+   "kind": "talk"
+  },
+  {
+   "id": "prob-talk",
+   "start": 3.44,
+   "dur": 5.0,
+   "rate": 1.0,
+   "kind": "talk"
+  },
+  {
+   "id": "sol-a",
+   "start": 8.44,
+   "dur": 3.8,
+   "rate": 1.0,
+   "kind": "talk"
+  },
+  {
+   "id": "sol-b",
+   "start": 12.24,
+   "dur": 3.22,
+   "rate": 1.0,
+   "kind": "talk"
+  },
+  {
+   "id": "feat-box",
+   "start": 15.46,
+   "dur": 2.4,
+   "rate": 0.75,
+   "kind": "broll"
+  },
+  {
+   "id": "feat-face",
+   "start": 17.86,
+   "dur": 1.9,
+   "rate": 0.737,
+   "kind": "broll"
+  },
+  {
+   "id": "feat-case",
+   "start": 19.76,
+   "dur": 1.94,
+   "rate": 0.722,
+   "kind": "broll"
+  },
+  {
+   "id": "feat-strap",
+   "start": 21.7,
+   "dur": 2.1,
+   "rate": 0.667,
+   "kind": "broll"
+  },
+  {
+   "id": "cta-a",
+   "start": 23.8,
+   "dur": 1.74,
+   "rate": 1.0,
+   "kind": "talk"
+  },
+  {
+   "id": "cta-b",
+   "start": 25.54,
+   "dur": 6.12,
+   "rate": 1.0,
+   "kind": "talk"
+  }
+ ],
+ "captions": [
+  [
+   "Pernahkah anda",
+   3.55,
+   4.37,
+   []
+  ],
+  [
+   "sedang sibuk bekerja,",
+   4.37,
+   5.69,
+   [
+    "sibuk"
+   ]
+  ],
+  [
+   "tetapi asyik perlu melihat telefon",
+   5.69,
+   7.01,
+   [
+    "telefon"
+   ]
+  ],
+  [
+   "setiap kali ada notifikasi?",
+   7.01,
+   8.39,
+   [
+    "notifikasi?"
+   ]
+  ],
+  [
+   "Ha,",
+   8.559999999999999,
+   9.14,
+   []
+  ],
+  [
+   "sebab itulah saya memilih",
+   9.22,
+   10.44,
+   []
+  ],
+  [
+   "Boleh lihat WhatsApp,",
+   12.3,
+   13.56,
+   [
+    "WhatsApp,"
+   ]
+  ],
+  [
+   "jawab panggilan",
+   13.66,
+   14.36,
+   [
+    "panggilan"
+   ]
+  ],
+  [
+   "dan pelbagai lagi.",
+   14.36,
+   15.44,
+   []
+  ],
+  [
+   "Memang berbaloi.",
+   23.92,
+   25.02,
+   [
+    "berbaloi."
+   ]
+  ],
+  [
+   "Mahu satu?",
+   25.04,
+   25.54,
+   []
+  ],
+  [
+   "Jangan tunggu lama.",
+   25.58,
+   26.6,
+   []
+  ],
+  [
+   "Klik pautan sekarang",
+   26.68,
+   27.5,
+   [
+    "sekarang"
+   ]
+  ],
+  [
+   "dan dapatkan",
+   27.5,
+   28.26,
+   []
+  ]
+ ],
+ "vo": {
+  "vo-hook": [
+   0.05,
+   3.11
+  ],
+  "vo-f1": [
+   15.5,
+   2.425
+  ],
+  "vo-f2": [
+   18.03,
+   2.494
+  ],
+  "vo-f3": [
+   20.62,
+   1.767
+  ],
+  "vo-f4": [
+   22.490000000000002,
+   1.199
+  ]
+ },
+ "end_card": 28.26
+}

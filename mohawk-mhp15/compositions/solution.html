@@ -1,0 +1,51 @@
+<template>
+  <style>
+    #root { position: absolute; inset: 0; overflow: hidden; font-family: "Montserrat", sans-serif; color: #fff; }
+    .scrim-top { position: absolute; left: 0; top: 0; width: 1080px; height: 760px;
+      background: linear-gradient(180deg, rgba(0,0,0,0.62) 0%, rgba(0,0,0,0.35) 45%, rgba(0,0,0,0) 100%); opacity: 0; }
+    .disp { font-family: "Archivo Black", sans-serif; text-transform: uppercase; letter-spacing: -0.01em; line-height: 0.98;
+      text-shadow: 0 6px 28px rgba(0,0,0,0.55); }
+    .red { color: #ff1f26; }
+    .disp.red { -webkit-text-stroke: 3px rgba(0,0,0,0.75); paint-order: stroke fill; }
+
+    #s-title { position: absolute; left: 0; top: 236px; width: 1080px; text-align: center; }
+    #s-brand { font-weight: 900; font-size: 54px; letter-spacing: 0.42em; padding-left: 0.42em; color: #e3141b;
+      text-shadow: 0 4px 18px rgba(0,0,0,0.6); }
+    #s-model { font-size: 176px; margin-top: 4px; filter: drop-shadow(0 8px 24px rgba(0,0,0,0.6)); }
+    #s-model span { background: linear-gradient(100deg, #d6dade 0%, #ffffff 36%, #ffffff 50%, #eef0f3 64%, #c4c9cf 100%);
+      background-size: 240% 100%; background-position: 100% 0; -webkit-background-clip: text; background-clip: text; color: transparent; }
+    #s-rule { width: 560px; height: 8px; margin: 18px auto 0; border-radius: 4px; background: #e3141b; transform-origin: 50% 50%; }
+    .chip { position: absolute; left: 70px; height: 104px; border-radius: 52px; padding: 0 40px 0 14px; display: flex; align-items: center; gap: 22px;
+      background: rgba(14,14,16,0.78); border: 1.5px solid rgba(255,255,255,0.16); box-shadow: 0 14px 36px rgba(0,0,0,0.45); opacity: 0; }
+    .chip .ic { width: 76px; height: 76px; border-radius: 38px; background: #e3141b; display: flex; align-items: center; justify-content: center; }
+    .chip .lb { font-size: 44px; font-weight: 800; white-space: nowrap; }
+  </style>
+  <div id="root" data-composition-id="solution" data-width="1080" data-height="1920" data-duration="7.02">
+    <div class="scrim-top" id="s-scrim"></div>
+    <div id="s-title">
+      <div id="s-brand">MOHAWK</div>
+      <div id="s-model" class="disp"><span>MH-P15</span></div>
+      <div id="s-rule"></div>
+    </div>
+    <div class="chip" id="s-c1" style="top:250px"><div class="ic"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.4 8.4 0 0 1-12.4 7.4L3 21l2.1-5.4A8.4 8.4 0 1 1 21 11.5z"/></svg></div><div class="lb">WhatsApp</div></div>
+    <div class="chip" id="s-c2" style="top:378px"><div class="ic"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></svg></div><div class="lb">Jawab Panggilan</div></div>
+    <div class="chip" id="s-c3" style="top:506px"><div class="ic"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg></div><div class="lb">&amp; Pelbagai Lagi</div></div>
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+    tl.fromTo("#s-scrim", { opacity: 0 }, { opacity: 1, duration: 0.2 }, 1.98);
+    tl.fromTo("#s-brand", { opacity: 0, scaleX: 1.35 }, { opacity: 1, scaleX: 1, duration: 0.45, ease: "power3.out" }, 1.98);
+    tl.fromTo("#s-model", { opacity: 0, scale: 1.5 }, { opacity: 1, scale: 1, duration: 0.28, ease: "power4.out" }, 2.02);
+    tl.fromTo("#s-model span", { backgroundPosition: "100% 0" }, { backgroundPosition: "0% 0", duration: 1.1, ease: "power2.inOut" }, 2.23);
+    tl.fromTo("#s-rule", { scaleX: 0 }, { scaleX: 1, duration: 0.4, ease: "power3.out" }, 2.1);
+    tl.to(["#s-title", "#s-scrim"], { opacity: 0, duration: 0.14, ease: "power2.in" }, 3.64);
+    tl.set("#s-title", { visibility: "hidden" }, 3.78);
+    tl.fromTo("#s-c1", { opacity: 0, x: -70, scale: 0.9 }, { opacity: 1, x: 0, scale: 1, duration: 0.24, ease: "back.out(2)" }, 4.66);
+    tl.to("#s-c1", { opacity: 0, x: -30, duration: 0.12, ease: "power2.in" }, 6.86);
+    tl.fromTo("#s-c2", { opacity: 0, x: -70, scale: 0.9 }, { opacity: 1, x: 0, scale: 1, duration: 0.24, ease: "back.out(2)" }, 5.24);
+    tl.to("#s-c2", { opacity: 0, x: -30, duration: 0.12, ease: "power2.in" }, 6.86);
+    tl.fromTo("#s-c3", { opacity: 0, x: -70, scale: 0.9 }, { opacity: 1, x: 0, scale: 1, duration: 0.24, ease: "back.out(2)" }, 5.88);
+    tl.to("#s-c3", { opacity: 0, x: -30, duration: 0.12, ease: "power2.in" }, 6.86);
+    window.__timelines["solution"] = tl;
+  </script>
+</template>

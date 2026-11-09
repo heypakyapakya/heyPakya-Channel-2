@@ -1,0 +1,87 @@
+<template>
+  <style>
+    #root { position: absolute; inset: 0; overflow: hidden; font-family: "Montserrat", sans-serif; color: #fff; }
+    .scrim-top { position: absolute; left: 0; top: 0; width: 1080px; height: 760px;
+      background: linear-gradient(180deg, rgba(0,0,0,0.62) 0%, rgba(0,0,0,0.35) 45%, rgba(0,0,0,0) 100%); opacity: 0; }
+    .disp { font-family: "Archivo Black", sans-serif; text-transform: uppercase; letter-spacing: -0.01em; line-height: 0.98;
+      text-shadow: 0 6px 28px rgba(0,0,0,0.55); }
+    .red { color: #ff1f26; }
+    .disp.red { -webkit-text-stroke: 3px rgba(0,0,0,0.75); paint-order: stroke fill; }
+
+    #f-kicker { position: absolute; left: 70px; top: 226px; display: flex; align-items: center; gap: 18px; opacity: 0; }
+    #f-kicker .bar { width: 12px; height: 58px; border-radius: 6px; background: #e3141b; }
+    #f-kicker .tx { font-weight: 900; font-size: 46px; letter-spacing: 0.03em; text-shadow: 0 4px 18px rgba(0,0,0,0.7); }
+    .spec { position: absolute; left: 70px; top: 1000px; width: 940px; }
+    .spec .idx { font-weight: 800; font-size: 28px; letter-spacing: 0.2em; color: #e3141b; opacity: 0; }
+    .spec .valwrap { overflow: hidden; height: 168px; margin-top: 6px; }
+    .spec .val { font-size: 150px; line-height: 168px; opacity: 0; white-space: nowrap; }
+    .spec .acc { width: 150px; height: 10px; border-radius: 5px; background: #e3141b; margin-top: 6px; transform-origin: 0 50%; }
+    .spec .lb { font-weight: 800; font-size: 42px; color: #dfe3e8; letter-spacing: 0.04em; margin-top: 16px; opacity: 0;
+      text-shadow: 0 3px 14px rgba(0,0,0,0.8); white-space: nowrap; }
+    .scrim-bot { position: absolute; left: 0; top: 860px; width: 1080px; height: 560px;
+      background: linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.5) 45%, rgba(0,0,0,0.5) 70%, rgba(0,0,0,0) 100%); opacity: 0; }
+  </style>
+  <div id="root" data-composition-id="features" data-width="1080" data-height="1920" data-duration="8.34">
+    <div class="scrim-bot" id="f-scrim"></div>
+    <div id="f-kicker"><div class="bar"></div><div class="tx">KENAPA MOHAWK MH-P15?</div></div>
+    <div class="spec" id="f-f1">
+      <div class="idx" id="f-f1-idx">01 / 04</div>
+      <div class="valwrap"><div class="val disp" id="f-f1-val"><span id="f1-num">0.00</span>&quot;</div></div>
+      <div class="acc" id="f-f1-acc"></div>
+      <div class="lb" id="f-f1-lb">SKRIN AMOLED</div>
+    </div>
+    <div class="spec" id="f-f2">
+      <div class="idx" id="f-f2-idx">02 / 04</div>
+      <div class="valwrap"><div class="val disp" id="f-f2-val">5ATM</div></div>
+      <div class="acc" id="f-f2-acc"></div>
+      <div class="lb" id="f-f2-lb">KALIS AIR HINGGA 50 METER</div>
+    </div>
+    <div class="spec" id="f-f3">
+      <div class="idx" id="f-f3-idx">03 / 04</div>
+      <div class="valwrap"><div class="val disp" id="f-f3-val"><span id="f3-num">0</span> HARI</div></div>
+      <div class="acc" id="f-f3-acc"></div>
+      <div class="lb" id="f-f3-lb">HAYAT BATERI</div>
+    </div>
+    <div class="spec" id="f-f4">
+      <div class="idx" id="f-f4-idx">04 / 04</div>
+      <div class="valwrap"><div class="val disp" id="f-f4-val">LASAK</div></div>
+      <div class="acc" id="f-f4-acc"></div>
+      <div class="lb" id="f-f4-lb">TAHAN HENTAKAN</div>
+    </div>
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+    tl.fromTo("#f-kicker", { opacity: 0, x: -50 }, { opacity: 1, x: 0, duration: 0.3, ease: "power3.out" }, 0.08);
+    tl.fromTo("#f-scrim", { opacity: 0 }, { opacity: 1, duration: 0.3 }, 0.05);
+    tl.to(["#f-kicker", "#f-scrim"], { opacity: 0, duration: 0.12, ease: "power2.in" }, 8.2);
+    tl.fromTo("#f-f1-acc", { scaleX: 0 }, { scaleX: 1, duration: 0.3, ease: "power3.out" }, 0.1);
+    tl.fromTo("#f-f1-idx", { opacity: 0 }, { opacity: 1, duration: 0.2 }, 0.1);
+    tl.fromTo("#f-f1-val", { opacity: 0, y: 150 }, { opacity: 1, y: 0, duration: 0.32, ease: "power4.out" }, 0.14);
+    tl.fromTo("#f-f1-lb", { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: 0.25, ease: "power2.out" }, 0.24);
+    tl.to("#f-f1", { opacity: 0, y: -20, duration: 0.12, ease: "power2.in" }, 2.38);
+    tl.set("#f-f1", { visibility: "hidden" }, 2.5);
+    { const o = { v: 0.0 }; const n = document.getElementById("f1-num");
+      tl.to(o, { v: 1.43, duration: 0.7, ease: "power2.out", onUpdate: () => { n.textContent = o.v.toFixed(2); } }, 0.14); }
+    tl.fromTo("#f-f2-acc", { scaleX: 0 }, { scaleX: 1, duration: 0.3, ease: "power3.out" }, 2.62);
+    tl.fromTo("#f-f2-idx", { opacity: 0 }, { opacity: 1, duration: 0.2 }, 2.62);
+    tl.fromTo("#f-f2-val", { opacity: 0, y: 150 }, { opacity: 1, y: 0, duration: 0.32, ease: "power4.out" }, 2.66);
+    tl.fromTo("#f-f2-lb", { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: 0.25, ease: "power2.out" }, 2.76);
+    tl.to("#f-f2", { opacity: 0, y: -20, duration: 0.12, ease: "power2.in" }, 4.98);
+    tl.set("#f-f2", { visibility: "hidden" }, 5.1);
+    tl.fromTo("#f-f3-acc", { scaleX: 0 }, { scaleX: 1, duration: 0.3, ease: "power3.out" }, 5.22);
+    tl.fromTo("#f-f3-idx", { opacity: 0 }, { opacity: 1, duration: 0.2 }, 5.22);
+    tl.fromTo("#f-f3-val", { opacity: 0, y: 150 }, { opacity: 1, y: 0, duration: 0.32, ease: "power4.out" }, 5.26);
+    tl.fromTo("#f-f3-lb", { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: 0.25, ease: "power2.out" }, 5.36);
+    tl.to("#f-f3", { opacity: 0, y: -20, duration: 0.12, ease: "power2.in" }, 6.88);
+    tl.set("#f-f3", { visibility: "hidden" }, 7.0);
+    { const o = { v: 0 }; const n = document.getElementById("f3-num");
+      tl.to(o, { v: 10, duration: 0.7, ease: "power2.out", onUpdate: () => { n.textContent = o.v.toFixed(0); } }, 5.26); }
+    tl.fromTo("#f-f4-acc", { scaleX: 0 }, { scaleX: 1, duration: 0.3, ease: "power3.out" }, 7.08);
+    tl.fromTo("#f-f4-idx", { opacity: 0 }, { opacity: 1, duration: 0.2 }, 7.08);
+    tl.fromTo("#f-f4-val", { opacity: 0, y: 150 }, { opacity: 1, y: 0, duration: 0.32, ease: "power4.out" }, 7.12);
+    tl.fromTo("#f-f4-lb", { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: 0.25, ease: "power2.out" }, 7.22);
+    tl.to("#f-f4", { opacity: 0, y: -20, duration: 0.12, ease: "power2.in" }, 8.16);
+    tl.set("#f-f4", { visibility: "hidden" }, 8.28);
+    window.__timelines["features"] = tl;
+  </script>
+</template>

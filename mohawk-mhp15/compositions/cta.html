@@ -1,0 +1,55 @@
+<template>
+  <style>
+    #root { position: absolute; inset: 0; overflow: hidden; font-family: "Montserrat", sans-serif; color: #fff; }
+    .scrim-top { position: absolute; left: 0; top: 0; width: 1080px; height: 760px;
+      background: linear-gradient(180deg, rgba(0,0,0,0.62) 0%, rgba(0,0,0,0.35) 45%, rgba(0,0,0,0) 100%); opacity: 0; }
+    .disp { font-family: "Archivo Black", sans-serif; text-transform: uppercase; letter-spacing: -0.01em; line-height: 0.98;
+      text-shadow: 0 6px 28px rgba(0,0,0,0.55); }
+    .red { color: #ff1f26; }
+    .disp.red { -webkit-text-stroke: 3px rgba(0,0,0,0.75); paint-order: stroke fill; }
+
+    #c-stamp { position: absolute; left: 744px; top: 250px; width: 250px; height: 250px; opacity: 0; }
+    #c-stamp .disc { position: absolute; inset: 0; border-radius: 50%; background: #e3141b; border: 8px solid #fff;
+      box-shadow: 0 16px 40px rgba(0,0,0,0.5); display: flex; flex-direction: column; align-items: center; justify-content: center; }
+    #c-stamp .w { font-family: "Archivo Black", sans-serif; font-size: 29px; margin-top: 0px; }
+    #c-btnwrap { position: absolute; left: 0; top: 930px; width: 1080px; display: flex; justify-content: center; }
+    #c-btn { display: flex; align-items: center; gap: 22px; padding: 0 52px; height: 132px; border-radius: 66px; background: #e3141b;
+      box-shadow: 0 0 0 6px rgba(255,255,255,0.9), 0 20px 50px rgba(227,20,27,0.45); opacity: 0; }
+    #c-btn .t { font-family: "Archivo Black", sans-serif; font-size: 50px; white-space: nowrap; }
+    #c-end { position: absolute; left: 0; top: 230px; width: 1080px; text-align: center; opacity: 0; }
+    #c-brand { font-weight: 900; font-size: 54px; letter-spacing: 0.42em; padding-left: 0.42em; color: #e3141b; text-shadow: 0 4px 18px rgba(0,0,0,0.6); }
+    #c-model { font-size: 180px; margin-top: 4px; }
+    #c-sub { font-weight: 800; font-size: 38px; letter-spacing: 0.22em; color: #dfe3e8; margin-top: 14px; text-shadow: 0 3px 14px rgba(0,0,0,0.8); }
+    #c-get { position: absolute; left: 0; top: 1150px; width: 1080px; display: flex; flex-direction: column; align-items: center; gap: 18px; opacity: 0; }
+    #c-get .pill { background: #fff; color: #0b0b0c; font-family: "Archivo Black", sans-serif; font-size: 50px; padding: 18px 54px 20px; border-radius: 60px;
+      box-shadow: 0 18px 44px rgba(0,0,0,0.5); }
+    #c-get .arr { width: 84px; height: 84px; border-radius: 42px; background: #e3141b; display: flex; align-items: center; justify-content: center; }
+  </style>
+  <div id="root" data-composition-id="cta" data-width="1080" data-height="1920" data-duration="7.86">
+    <div class="scrim-top" id="c-scrim"></div>
+    <div id="c-stamp"><div class="disc"><svg width="96" height="96" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg><div class="w">BERBALOI!</div></div></div>
+    <div id="c-btnwrap"><div id="c-btn"><svg width="52" height="52" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12l7 7 7-7"/></svg><div class="t">KLIK PAUTAN SEKARANG</div></div></div>
+    <div id="c-end">
+      <div id="c-brand">MOHAWK</div>
+      <div id="c-model" class="disp">MH-P15</div>
+      <div id="c-sub">LASAK &bull; PINTAR &bull; TAHAN LAMA</div>
+    </div>
+    <div id="c-get"><div class="pill">DAPATKAN SEKARANG</div><div class="arr" id="c-arr"><svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12l7 7 7-7"/></svg></div></div>
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+    tl.fromTo("#c-stamp", { opacity: 0, scale: 2.2, rotation: -30 }, { opacity: 1, scale: 1, rotation: -10, duration: 0.3, ease: "back.out(2.2)" }, 0.7);
+    tl.to("#c-stamp", { opacity: 0, scale: 0.85, duration: 0.14, ease: "power2.in" }, 1.55);
+    tl.set("#c-stamp", { visibility: "hidden" }, 1.69);
+    tl.fromTo("#c-btn", { opacity: 0, scale: 0.6, y: 40 }, { opacity: 1, scale: 1, y: 0, duration: 0.3, ease: "back.out(2.4)" }, 2.86);
+    tl.to("#c-btn", { scale: 1.06, duration: 0.24, ease: "sine.inOut", yoyo: true, repeat: 3 }, 3.26);
+    tl.to("#c-btn", { opacity: 0, scale: 0.9, duration: 0.14, ease: "power2.in" }, 4.3);
+    tl.set("#c-btn", { visibility: "hidden" }, 4.46);
+    tl.fromTo("#c-scrim", { opacity: 0 }, { opacity: 1, duration: 0.25 }, 4.46);
+    tl.fromTo("#c-end", { opacity: 0, scale: 1.25 }, { opacity: 1, scale: 1, duration: 0.35, ease: "power4.out" }, 4.48);
+    tl.fromTo("#c-brand", { scaleX: 1.35 }, { scaleX: 1, duration: 0.5, ease: "power3.out" }, 4.48);
+    tl.fromTo("#c-get", { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.3, ease: "back.out(2)" }, 4.71);
+    tl.to("#c-arr", { y: 16, duration: 0.28, ease: "sine.inOut", yoyo: true, repeat: 3 }, 5.06);
+    window.__timelines["cta"] = tl;
+  </script>
+</template>

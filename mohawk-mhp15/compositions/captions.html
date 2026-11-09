@@ -1,0 +1,79 @@
+<template>
+  <style>
+    #root { position: absolute; inset: 0; overflow: hidden; font-family: "Montserrat", sans-serif; color: #fff; }
+    .scrim-top { position: absolute; left: 0; top: 0; width: 1080px; height: 760px;
+      background: linear-gradient(180deg, rgba(0,0,0,0.62) 0%, rgba(0,0,0,0.35) 45%, rgba(0,0,0,0) 100%); opacity: 0; }
+    .disp { font-family: "Archivo Black", sans-serif; text-transform: uppercase; letter-spacing: -0.01em; line-height: 0.98;
+      text-shadow: 0 6px 28px rgba(0,0,0,0.55); }
+    .red { color: #ff1f26; }
+    .disp.red { -webkit-text-stroke: 3px rgba(0,0,0,0.75); paint-order: stroke fill; }
+
+    .cap { position: absolute; left: 0; top: 1150px; width: 1080px; padding: 0 90px; text-align: center; opacity: 0; overflow: visible; }
+    .cap .in { display: inline-block; font-weight: 900; font-size: 66px; line-height: 1.12; text-transform: uppercase; letter-spacing: 0.01em;
+      color: #fff; -webkit-text-stroke: 3px rgba(0,0,0,0.85); paint-order: stroke fill;
+      text-shadow: 0 6px 22px rgba(0,0,0,0.65); }
+    .cap .hl { color: #ff2a2f; }
+  </style>
+  <div id="root" data-composition-id="captions" data-width="1080" data-height="1920" data-duration="31.66">
+    <div class="cap" id="cap-0"><span class="in">Pernahkah anda</span></div>
+    <div class="cap" id="cap-1"><span class="in">sedang <span class="hl">sibuk</span> bekerja,</span></div>
+    <div class="cap" id="cap-2"><span class="in">tetapi asyik perlu melihat <span class="hl">telefon</span></span></div>
+    <div class="cap" id="cap-3"><span class="in">setiap kali ada <span class="hl">notifikasi?</span></span></div>
+    <div class="cap" id="cap-4"><span class="in">Ha,</span></div>
+    <div class="cap" id="cap-5"><span class="in">sebab itulah saya memilih</span></div>
+    <div class="cap" id="cap-6"><span class="in">Boleh lihat <span class="hl">WhatsApp,</span></span></div>
+    <div class="cap" id="cap-7"><span class="in">jawab <span class="hl">panggilan</span></span></div>
+    <div class="cap" id="cap-8"><span class="in">dan pelbagai lagi.</span></div>
+    <div class="cap" id="cap-9"><span class="in">Memang <span class="hl">berbaloi.</span></span></div>
+    <div class="cap" id="cap-10"><span class="in">Mahu satu?</span></div>
+    <div class="cap" id="cap-11"><span class="in">Jangan tunggu lama.</span></div>
+    <div class="cap" id="cap-12"><span class="in">Klik pautan <span class="hl">sekarang</span></span></div>
+    <div class="cap" id="cap-13"><span class="in">dan dapatkan</span></div>
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+    tl.fromTo("#cap-0", { opacity: 0, y: 16, scale: 0.9 }, { opacity: 1, y: 0, scale: 1, duration: 0.14, ease: "back.out(2.5)" }, 3.51);
+    tl.to("#cap-0", { opacity: 0, duration: 0.08, ease: "power2.in" }, 4.29);
+    tl.set("#cap-0", { opacity: 0, visibility: "hidden" }, 4.37);
+    tl.fromTo("#cap-1", { opacity: 0, y: 16, scale: 0.9 }, { opacity: 1, y: 0, scale: 1, duration: 0.14, ease: "back.out(2.5)" }, 4.37);
+    tl.to("#cap-1", { opacity: 0, duration: 0.08, ease: "power2.in" }, 5.61);
+    tl.set("#cap-1", { opacity: 0, visibility: "hidden" }, 5.69);
+    tl.fromTo("#cap-2", { opacity: 0, y: 16, scale: 0.9 }, { opacity: 1, y: 0, scale: 1, duration: 0.14, ease: "back.out(2.5)" }, 5.69);
+    tl.to("#cap-2", { opacity: 0, duration: 0.08, ease: "power2.in" }, 6.93);
+    tl.set("#cap-2", { opacity: 0, visibility: "hidden" }, 7.01);
+    tl.fromTo("#cap-3", { opacity: 0, y: 16, scale: 0.9 }, { opacity: 1, y: 0, scale: 1, duration: 0.14, ease: "back.out(2.5)" }, 7.01);
+    tl.to("#cap-3", { opacity: 0, duration: 0.08, ease: "power2.in" }, 8.31);
+    tl.set("#cap-3", { opacity: 0, visibility: "hidden" }, 8.39);
+    tl.fromTo("#cap-4", { opacity: 0, y: 16, scale: 0.9 }, { opacity: 1, y: 0, scale: 1, duration: 0.14, ease: "back.out(2.5)" }, 8.52);
+    tl.to("#cap-4", { opacity: 0, duration: 0.08, ease: "power2.in" }, 9.06);
+    tl.set("#cap-4", { opacity: 0, visibility: "hidden" }, 9.14);
+    tl.fromTo("#cap-5", { opacity: 0, y: 16, scale: 0.9 }, { opacity: 1, y: 0, scale: 1, duration: 0.14, ease: "back.out(2.5)" }, 9.18);
+    tl.to("#cap-5", { opacity: 0, duration: 0.08, ease: "power2.in" }, 10.36);
+    tl.set("#cap-5", { opacity: 0, visibility: "hidden" }, 10.44);
+    tl.fromTo("#cap-6", { opacity: 0, y: 16, scale: 0.9 }, { opacity: 1, y: 0, scale: 1, duration: 0.14, ease: "back.out(2.5)" }, 12.26);
+    tl.to("#cap-6", { opacity: 0, duration: 0.08, ease: "power2.in" }, 13.48);
+    tl.set("#cap-6", { opacity: 0, visibility: "hidden" }, 13.56);
+    tl.fromTo("#cap-7", { opacity: 0, y: 16, scale: 0.9 }, { opacity: 1, y: 0, scale: 1, duration: 0.14, ease: "back.out(2.5)" }, 13.62);
+    tl.to("#cap-7", { opacity: 0, duration: 0.08, ease: "power2.in" }, 14.28);
+    tl.set("#cap-7", { opacity: 0, visibility: "hidden" }, 14.36);
+    tl.fromTo("#cap-8", { opacity: 0, y: 16, scale: 0.9 }, { opacity: 1, y: 0, scale: 1, duration: 0.14, ease: "back.out(2.5)" }, 14.36);
+    tl.to("#cap-8", { opacity: 0, duration: 0.08, ease: "power2.in" }, 15.36);
+    tl.set("#cap-8", { opacity: 0, visibility: "hidden" }, 15.44);
+    tl.fromTo("#cap-9", { opacity: 0, y: 16, scale: 0.9 }, { opacity: 1, y: 0, scale: 1, duration: 0.14, ease: "back.out(2.5)" }, 23.88);
+    tl.to("#cap-9", { opacity: 0, duration: 0.08, ease: "power2.in" }, 24.94);
+    tl.set("#cap-9", { opacity: 0, visibility: "hidden" }, 25.02);
+    tl.fromTo("#cap-10", { opacity: 0, y: 16, scale: 0.9 }, { opacity: 1, y: 0, scale: 1, duration: 0.14, ease: "back.out(2.5)" }, 25.02);
+    tl.to("#cap-10", { opacity: 0, duration: 0.08, ease: "power2.in" }, 25.46);
+    tl.set("#cap-10", { opacity: 0, visibility: "hidden" }, 25.54);
+    tl.fromTo("#cap-11", { opacity: 0, y: 16, scale: 0.9 }, { opacity: 1, y: 0, scale: 1, duration: 0.14, ease: "back.out(2.5)" }, 25.54);
+    tl.to("#cap-11", { opacity: 0, duration: 0.08, ease: "power2.in" }, 26.52);
+    tl.set("#cap-11", { opacity: 0, visibility: "hidden" }, 26.6);
+    tl.fromTo("#cap-12", { opacity: 0, y: 16, scale: 0.9 }, { opacity: 1, y: 0, scale: 1, duration: 0.14, ease: "back.out(2.5)" }, 26.64);
+    tl.to("#cap-12", { opacity: 0, duration: 0.08, ease: "power2.in" }, 27.42);
+    tl.set("#cap-12", { opacity: 0, visibility: "hidden" }, 27.5);
+    tl.fromTo("#cap-13", { opacity: 0, y: 16, scale: 0.9 }, { opacity: 1, y: 0, scale: 1, duration: 0.14, ease: "back.out(2.5)" }, 27.5);
+    tl.to("#cap-13", { opacity: 0, duration: 0.08, ease: "power2.in" }, 28.18);
+    tl.set("#cap-13", { opacity: 0, visibility: "hidden" }, 28.26);
+    window.__timelines["captions"] = tl;
+  </script>
+</template>
