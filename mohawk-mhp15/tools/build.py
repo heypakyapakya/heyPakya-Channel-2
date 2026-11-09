@@ -37,6 +37,7 @@ ctab  = lambda src: round(S_CTAB + (src - 1.92), 3)
 F0 = S_BOX
 VO = {"vo-hook": (0.05, 3.11), "vo-f1": (F0 + 0.04, 2.425), "vo-f2": (F0 + 2.57, 2.494),
       "vo-f3": (F0 + 5.16, 1.767), "vo-f4": (F0 + 7.03, 1.199)}
+USE_VO = False  # voice-over removed at the client's request
 END_CARD = ctab(4.64)
 CLOSEUP = ctab(6.20)
 
@@ -92,10 +93,11 @@ SFX_DUR = {"impact-bass-1": 2.12, "impact-bass-2": 2.59, "whoosh": 0.57, "whoosh
            "pop": 0.72, "ping": 1.32, "notification": 2.46, "click": 0.37, "sparkle": 1.80}
 
 # ---------------- music bed with ducking ----------------
-M0 = S_HERO  # music drops on the hero cut
+M0 = 0.0  # music from frame 0 (no voice-over)
 def m(t_abs, v): return {"t": round(max(0, t_abs - M0), 3), "v": v}
-MUSIC_LANE = [m(M0, 0.55), m(S_TALK - 0.25, 0.55), m(S_TALK, 0.28), m(F0 - 0.2, 0.28), m(F0, 0.62),
-              m(S_CTAA - 0.2, 0.62), m(S_CTAA, 0.28), m(ctab(6.18), 0.28), m(ctab(6.18) + 0.3, 0.85)]
+# music-only sections ~1.0, under dialogue 0.14 (data-volume is 1)
+MUSIC_LANE = [m(M0, 0.85), m(S_TALK - 0.25, 0.85), m(S_TALK, 0.14), m(F0 - 0.2, 0.14), m(F0, 1.0),
+              m(S_CTAA - 0.2, 1.0), m(S_CTAA, 0.14), m(ctab(6.18), 0.14), m(ctab(6.18) + 0.3, 0.9)]
 MUSIC_DUR = round(TOTAL - M0, 3)
 
 # ---------------- punch-ins on shot wrappers ----------------
@@ -150,12 +152,12 @@ hosts = [
 ]
 
 audio = []
-for k, (st, d) in VO.items():
+for k, (st, d) in ([] if not USE_VO else VO.items()):
     audio.append(f'      <audio id="a-{k}" class="clip" src="assets/audio/{k}.wav" data-start="{round(st,3)}" '
                  f'data-duration="{d}" data-volume="1" data-track-index="10"></audio>')
 lane = json.dumps({"version": 1, "lanes": [{"target": "volume", "points": MUSIC_LANE}]}).replace('"', "&quot;")
 audio.append(f'      <audio id="a-music" class="clip" src="assets/audio/music.wav" data-start="{M0}" '
-             f'data-duration="{MUSIC_DUR}" data-volume="0.5" data-fade-out="1.2" data-track-index="11"\n'
+             f'data-duration="{MUSIC_DUR}" data-volume="1" data-fade-out="1.2" data-track-index="11"\n'
              f'        data-automation="{lane}"></audio>')
 lanes_end = []
 for i, (id_, f, st, vol) in enumerate(SFX):
@@ -212,7 +214,7 @@ index = f'''<!doctype html>
 
       <div id="flash" class="clip" data-start="0" data-duration="{TOTAL}" data-track-index="9" data-layout-ignore></div>
 
-      <!-- AUDIO: VO (Malaysian Malay), music bed, SFX -->
+      <!-- AUDIO: dialogue on the footage, music bed, SFX -->
 {chr(10).join(audio)}
     </div>
     <script>
