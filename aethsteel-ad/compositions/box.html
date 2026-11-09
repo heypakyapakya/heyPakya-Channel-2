@@ -1,0 +1,251 @@
+<template>
+  <style>
+    #root {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+      background: #0b0a09;
+    }
+    #box-cam {
+      position: absolute;
+      inset: 0;
+      transform-origin: 540px 900px;
+    }
+    #box-shadow {
+      position: absolute;
+      left: 140px;
+      top: 1300px;
+      width: 800px;
+      height: 150px;
+      border-radius: 50%;
+      background: radial-gradient(ellipse at center, rgba(0, 0, 0, 0.75) 0%, rgba(0, 0, 0, 0.45) 45%, rgba(0, 0, 0, 0) 72%);
+    }
+    #box-beam {
+      position: absolute;
+      left: 190px;
+      top: 300px;
+      width: 700px;
+      height: 760px;
+      background: linear-gradient(0deg, rgba(255, 214, 140, 0.55) 0%, rgba(255, 214, 140, 0.18) 45%, rgba(255, 214, 140, 0) 100%);
+      clip-path: polygon(30% 100%, 70% 100%, 100% 0%, 0% 0%);
+      mix-blend-mode: screen;
+      opacity: 0;
+    }
+    #box-persp {
+      position: absolute;
+      inset: 0;
+      perspective: 2200px;
+      perspective-origin: 540px 760px;
+    }
+    #box-3d {
+      position: absolute;
+      left: 540px;
+      top: 1130px;
+      width: 0;
+      height: 0;
+      transform-style: preserve-3d;
+    }
+    #box-3d .f {
+      position: absolute;
+      background: linear-gradient(165deg, #23201c 0%, #121110 55%, #0a0908 100%);
+      box-shadow: inset 0 0 0 2px rgba(217, 178, 95, 0.45);
+    }
+    #box-front {
+      left: -380px;
+      top: -180px;
+      width: 760px;
+      height: 360px;
+      transform: translateZ(240px);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 26px;
+    }
+    #box-back {
+      left: -380px;
+      top: -180px;
+      width: 760px;
+      height: 360px;
+      transform: rotateY(180deg) translateZ(240px);
+    }
+    #box-right {
+      left: -240px;
+      top: -180px;
+      width: 480px;
+      height: 360px;
+      transform: rotateY(90deg) translateZ(380px);
+      background: linear-gradient(165deg, #2c2823 0%, #171512 60%, #0d0c0b 100%) !important;
+    }
+    #box-left {
+      left: -240px;
+      top: -180px;
+      width: 480px;
+      height: 360px;
+      transform: rotateY(-90deg) translateZ(380px);
+    }
+    #box-bottom {
+      left: -380px;
+      top: -240px;
+      width: 760px;
+      height: 480px;
+      transform: rotateX(90deg) translateZ(-180px);
+    }
+    #box-inner-light {
+      position: absolute;
+      left: -370px;
+      top: -230px;
+      width: 740px;
+      height: 460px;
+      transform: rotateX(90deg) translateZ(110px);
+      background: radial-gradient(ellipse at center, #ffe7b0 0%, #e0b25e 40%, #6b4e1f 100%);
+      opacity: 0;
+    }
+    .box-logo {
+      width: 520px;
+      height: 102px;
+      background: linear-gradient(100deg, #8a6a2c 0%, #f6e3a6 38%, #d9b25f 55%, #a07c34 80%, #f0d892 100%);
+      -webkit-mask: url(assets/img/logo.png) center / contain no-repeat;
+      mask: url(assets/img/logo.png) center / contain no-repeat;
+    }
+    .box-rule {
+      width: 520px;
+      height: 2px;
+      background: linear-gradient(90deg, rgba(217, 178, 95, 0), #d9b25f, rgba(217, 178, 95, 0));
+    }
+    .box-model {
+      font-family: var(--font-display);
+      font-weight: 600;
+      font-size: 30px;
+      letter-spacing: 0.32em;
+      color: #d9b25f;
+    }
+    #box-lid {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 0;
+      height: 0;
+      transform-style: preserve-3d;
+    }
+    #box-lid .f {
+      background: linear-gradient(160deg, #26231f 0%, #141210 60%, #0b0a09 100%);
+    }
+    #lid-top {
+      left: -388px;
+      top: 0;
+      width: 776px;
+      height: 492px;
+      transform-origin: 50% 0;
+      transform: rotateX(90deg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    #lid-front {
+      left: -388px;
+      top: 0;
+      width: 776px;
+      height: 72px;
+      transform: translateZ(492px);
+    }
+    #lid-left,
+    #lid-right {
+      top: 0;
+      width: 492px;
+      height: 72px;
+      transform-origin: 0 0;
+      transform: rotateY(-90deg);
+    }
+    #lid-left {
+      left: -388px;
+    }
+    #lid-right {
+      left: 388px;
+    }
+    #box-rise {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 0;
+      height: 0;
+      transform-style: preserve-3d;
+    }
+    #box-product {
+      position: absolute;
+      left: -340px;
+      top: -178px;
+      width: 680px;
+      height: 356px;
+    }
+    #box-l1 {
+      top: 240px;
+    }
+    #box-l2 {
+      top: 330px;
+    }
+  </style>
+  <div id="root" data-composition-id="box" data-width="1080" data-height="1920">
+    <div class="studio"></div>
+    <div id="box-cam">
+      <div id="box-shadow"></div>
+      <div id="box-beam"></div>
+      <div id="box-persp">
+        <div id="box-3d">
+          <div id="box-bottom" class="f"></div>
+          <div id="box-back" class="f"></div>
+          <div id="box-left" class="f"></div>
+          <div id="box-inner-light"></div>
+          <div id="box-rise">
+            <img id="box-product" src="assets/img/hero.png" alt="AETHSTEEL 998VF blower" />
+          </div>
+          <div id="box-right" class="f"></div>
+          <div id="box-front" class="f">
+            <div class="box-logo"></div>
+            <div class="box-rule"></div>
+            <div class="box-model" data-layout-ignore>998VF · BLOWER + VACUUM</div>
+          </div>
+          <div id="box-lid">
+            <div id="lid-top" class="f"><div class="box-logo"></div></div>
+            <div id="lid-front" class="f"></div>
+            <div id="lid-left" class="f"></div>
+            <div id="lid-right" class="f"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="box-l1" class="say">
+      <span class="w q">“</span><span class="w">Tak.</span> <span class="w">Rahsianya…</span>
+    </div>
+    <div id="box-l2" class="say gold">
+      <span class="w">…ada</span> <span class="w">dalam</span> <span class="w">kotak</span>
+      <span class="w">ini.”</span>
+    </div>
+  </div>
+  <script>
+    (function () {
+      const tl = gsap.timeline({ paused: true });
+      // whip in from the right, matching the hook's leftward exit
+      tl.fromTo("#box-cam", { x: 1100, scale: 0.9 }, { x: 0, scale: 0.9, duration: 0.4, ease: "power3.out" }, 0);
+      tl.to("#box-cam", { scale: 1, duration: 2.2, ease: "power2.inOut" }, 0.4);
+      // slow orbit of the box
+      tl.fromTo("#box-3d", { rotationX: -20, rotationY: -40 }, { rotationX: -18, rotationY: -26, duration: 4.4, ease: "power2.inOut" }, 0);
+      // lid hinge at the back top edge
+      tl.fromTo("#box-lid", { x: 0, y: -182, z: -246, rotationX: 0 }, { x: 0, y: -182, z: -246, rotationX: 0, duration: 0.01 }, 0);
+      tl.to("#box-lid", { rotationX: 118, duration: 0.85, ease: "power3.inOut" }, 2.0);
+      tl.fromTo("#box-inner-light", { opacity: 0 }, { opacity: 1, duration: 0.5, ease: "power2.out" }, 2.15);
+      tl.fromTo("#box-beam", { opacity: 0 }, { opacity: 0.85, duration: 0.6, ease: "power2.out" }, 2.25);
+      // product rises out of the box
+      tl.fromTo("#box-rise", { x: 0, y: 10, z: 0, rotationY: 30 }, { x: 0, y: 10, z: 0, rotationY: 30, duration: 0.01 }, 0);
+      tl.fromTo("#box-product", { opacity: 0 }, { opacity: 1, duration: 0.2 }, 2.3);
+      tl.to("#box-rise", { y: -560, rotationY: 18, duration: 1.8, ease: "power2.out" }, 2.5);
+      // dialogue
+      tl.fromTo("#box-l1 .w", { opacity: 0, filter: "blur(6px)" }, { opacity: 1, filter: "blur(0px)", duration: 0.13, stagger: 0.09 }, 0.3);
+      tl.fromTo("#box-l2 .w", { opacity: 0, filter: "blur(6px)" }, { opacity: 1, filter: "blur(0px)", duration: 0.13, stagger: 0.08 }, 0.85);
+      tl.to(["#box-l1", "#box-l2"], { opacity: 0, filter: "blur(8px)", duration: 0.2, ease: "power2.in" }, 2.45);
+      // zoom through toward the product
+      tl.to("#box-cam", { scale: 2.4, y: 420, opacity: 0.2, duration: 0.4, ease: "power3.in" }, 4.4);
+      window.__timelines["box"] = tl;
+    })();
+  </script>
+</template>

@@ -1,0 +1,5 @@
+node_modules/
+# HyperFrames working caches (snapshots, render scratch)
+aethsteel-ad/.hyperframes/artifacts/
+aethsteel-ad/.hyperframes/cache/
+aethsteel-ad/.hyperframes/*-lock

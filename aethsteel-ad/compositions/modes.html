@@ -1,0 +1,131 @@
+<template>
+  <style>
+    #root {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+      background: #0b0a09;
+    }
+    #md-stage {
+      position: absolute;
+      inset: 0;
+    }
+    #md-title {
+      position: absolute;
+      left: 80px;
+      top: 230px;
+      width: 860px;
+      height: 210px;
+      overflow: hidden;
+    }
+    #md-roll {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 860px;
+    }
+    .md-word {
+      height: 210px;
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 190px;
+      line-height: 210px;
+      letter-spacing: 0.02em;
+      color: var(--gold-hi);
+    }
+    .md-sub {
+      position: absolute;
+      left: 80px;
+      top: 455px;
+      width: 860px;
+      font-family: var(--font-body);
+      font-weight: 800;
+      font-size: 48px;
+      color: var(--ink);
+    }
+    #md-shadow {
+      position: absolute;
+      left: 120px;
+      top: 1030px;
+      width: 840px;
+      height: 100px;
+      border-radius: 50%;
+      background: radial-gradient(ellipse at center, rgba(0, 0, 0, 0.75) 0%, rgba(0, 0, 0, 0.35) 50%, rgba(0, 0, 0, 0) 72%);
+    }
+    #md-blow {
+      position: absolute;
+      left: 60px;
+      top: 620px;
+      width: 960px;
+      height: 431px;
+    }
+    #md-vac {
+      position: absolute;
+      left: 170px;
+      top: 540px;
+      width: 760px;
+      height: 521px;
+    }
+    #md-rule {
+      position: absolute;
+      left: 80px;
+      top: 1170px;
+      width: 860px;
+      text-align: center;
+      font-family: var(--font-display);
+      font-weight: 600;
+      font-size: 54px;
+      letter-spacing: 0.14em;
+      color: var(--gold);
+    }
+    #md-rule-line {
+      position: absolute;
+      left: 80px;
+      top: 1150px;
+      width: 860px;
+      height: 3px;
+      background: linear-gradient(90deg, rgba(217, 178, 95, 0), #d9b25f 20%, #d9b25f 80%, rgba(217, 178, 95, 0));
+      transform-origin: 50% 50%;
+    }
+  </style>
+  <div id="root" data-composition-id="modes" data-width="1080" data-height="1920">
+    <div class="studio"></div>
+    <div id="md-stage">
+      <div id="md-title">
+        <div id="md-roll">
+          <div class="md-word">TIUP</div>
+          <div class="md-word">SEDUT</div>
+        </div>
+      </div>
+      <div id="md-sub1" class="md-sub">Muncung panjang, habuk melayang.</div>
+      <div id="md-sub2" class="md-sub">Pasang beg, sampah disedut.</div>
+      <div id="md-shadow"></div>
+      <img id="md-blow" src="assets/img/mode-blow.png" alt="Set peniup dengan muncung panjang" />
+      <img id="md-vac" src="assets/img/mode-vac.png" alt="Set penyedut dengan beg habuk" />
+      <div id="md-rule-line"></div>
+      <div id="md-rule">SATU MESIN · DUA FUNGSI</div>
+    </div>
+  </div>
+  <script>
+    (function () {
+      const tl = gsap.timeline({ paused: true });
+      // vertical whip in (details left upward)
+      tl.fromTo("#md-stage", { y: 1500 }, { y: 0, duration: 0.4, ease: "power3.out" }, 0);
+      tl.fromTo("#md-roll", { y: 0 }, { y: 0, duration: 0.01 }, 0);
+      tl.fromTo("#md-sub1", { opacity: 0, filter: "blur(6px)" }, { opacity: 1, filter: "blur(0px)", duration: 0.15 }, 0.45);
+      tl.fromTo("#md-blow", { opacity: 1, x: 80 }, { opacity: 1, x: 0, duration: 1.6, ease: "power2.out" }, 0.1);
+      tl.fromTo("#md-vac", { opacity: 0, filter: "blur(10px)" }, { opacity: 0, filter: "blur(10px)", duration: 0.01 }, 0);
+      // switch: the word rolls like a slot, the set-up swaps on the same stage
+      tl.to("#md-roll", { y: -210, duration: 0.35, ease: "power3.inOut" }, 1.85);
+      tl.to("#md-sub1", { opacity: 0, filter: "blur(6px)", duration: 0.15 }, 1.85);
+      tl.fromTo("#md-sub2", { opacity: 0, filter: "blur(6px)" }, { opacity: 1, filter: "blur(0px)", duration: 0.15 }, 2.1);
+      tl.to("#md-blow", { opacity: 0, filter: "blur(10px)", duration: 0.18, ease: "power2.in" }, 1.85);
+      tl.to("#md-vac", { opacity: 1, filter: "blur(0px)", duration: 0.25, ease: "power2.out" }, 1.98);
+      tl.fromTo("#md-vac", { x: -60 }, { x: 0, duration: 1.4, ease: "power2.out" }, 1.98);
+      // the claim
+      tl.fromTo("#md-rule-line", { scaleX: 0 }, { scaleX: 1, duration: 0.45, ease: "expo.out" }, 2.6);
+      tl.fromTo("#md-rule", { opacity: 0, scale: 1.2, filter: "blur(8px)" }, { opacity: 1, scale: 1, filter: "blur(0px)", duration: 0.4, ease: "expo.out" }, 2.65);
+      window.__timelines["modes"] = tl;
+    })();
+  </script>
+</template>

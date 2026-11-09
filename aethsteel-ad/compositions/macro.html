@@ -1,0 +1,107 @@
+<template>
+  <style>
+    #root {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+      background: #e9e9ea;
+    }
+    #mc-cam {
+      position: absolute;
+      left: -859px;
+      top: -139px;
+      width: 2304px;
+      height: 1920px;
+      transform-origin: 1459px 1389px;
+    }
+    #mc-photo {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 2304px;
+      height: 1920px;
+    }
+    #mc-wash {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 1080px;
+      height: 1150px;
+      background: linear-gradient(180deg, rgba(240, 240, 241, 0.9) 0%, rgba(240, 240, 241, 0.82) 62%, rgba(240, 240, 241, 0) 100%);
+    }
+    .mc-row {
+      position: absolute;
+      left: 80px;
+      width: 860px;
+    }
+    .mc-num {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 150px;
+      line-height: 1;
+      color: #111111;
+      letter-spacing: 0.01em;
+    }
+    .mc-lbl {
+      margin-top: 8px;
+      font-family: var(--font-body);
+      font-weight: 800;
+      font-size: 36px;
+      letter-spacing: 0.06em;
+      color: #8f1117;
+    }
+    #mc-r1 {
+      top: 230px;
+    }
+    #mc-r2 {
+      top: 470px;
+    }
+    #mc-r3 {
+      top: 710px;
+    }
+  </style>
+  <div data-hf-id="hf-2crh" id="root" data-composition-id="macro" data-width="1080" data-height="1920">
+    <div data-hf-id="hf-bliv" id="mc-cam">
+      <img data-color-grading="{&quot;preset&quot;:null,&quot;intensity&quot;:1,&quot;adjust&quot;:{&quot;exposure&quot;:0,&quot;contrast&quot;:0.22,&quot;highlights&quot;:-0.1,&quot;shadows&quot;:0,&quot;whites&quot;:0,&quot;blacks&quot;:0,&quot;temperature&quot;:-0.12,&quot;tint&quot;:0,&quot;vibrance&quot;:0,&quot;saturation&quot;:0},&quot;details&quot;:{&quot;vignette&quot;:0.25,&quot;vignetteMidpoint&quot;:0.5,&quot;vignetteRoundness&quot;:0,&quot;vignetteFeather&quot;:0.65,&quot;grain&quot;:0,&quot;grainSize&quot;:0.25,&quot;grainRoughness&quot;:0.5},&quot;effects&quot;:{&quot;blur&quot;:0,&quot;pixelate&quot;:0,&quot;chromaBleed&quot;:0,&quot;tapeDamage&quot;:0,&quot;tapeTracking&quot;:0,&quot;tapeNoise&quot;:1,&quot;tapeSpeed&quot;:0.5,&quot;filmArtifacts&quot;:0,&quot;halftone&quot;:0,&quot;halftoneSize&quot;:0,&quot;twoInkPrint&quot;:0,&quot;twoInkPrintSize&quot;:0,&quot;ascii&quot;:0,&quot;asciiSize&quot;:0.06578947368421052,&quot;asciiInvert&quot;:0,&quot;asciiStyle&quot;:0,&quot;asciiColor&quot;:1,&quot;asciiRotation&quot;:0,&quot;dither&quot;:0,&quot;ditherSize&quot;:0,&quot;bloom&quot;:0,&quot;bloomRadius&quot;:8,&quot;monoScreen&quot;:0,&quot;monoScreenSize&quot;:0,&quot;monoScreenAngle&quot;:0,&quot;monoScreenSpread&quot;:0,&quot;monoScreenShape&quot;:0,&quot;monoScreenInvert&quot;:0,&quot;scanlines&quot;:0,&quot;scanlineCount&quot;:0,&quot;scanlineSoftness&quot;:0,&quot;chromaticAberration&quot;:0,&quot;chromaticAngle&quot;:0,&quot;crtCurvature&quot;:0,&quot;digitalGlitch&quot;:0,&quot;digitalGlitchColorSplit&quot;:0,&quot;digitalGlitchLineTear&quot;:0,&quot;digitalGlitchPixelate&quot;:0,&quot;digitalGlitchBlockAmount&quot;:0,&quot;digitalGlitchBlockDisplacement&quot;:0,&quot;digitalGlitchBlockOpacity&quot;:0,&quot;digitalGlitchSpeed&quot;:0,&quot;engraving&quot;:0,&quot;engravingSpacing&quot;:0.4117647058823529,&quot;engravingMinThickness&quot;:0.2,&quot;engravingMaxThickness&quot;:0.4571428571428572,&quot;engravingAngle&quot;:0.25,&quot;engravingContrast&quot;:0.4666666666666667,&quot;engravingSharpness&quot;:0.59,&quot;engravingWave&quot;:0.2,&quot;engravingWaveFrequency&quot;:0.2222222222222222,&quot;crosshatch&quot;:0,&quot;crosshatchSpacing&quot;:0.28,&quot;crosshatchThickness&quot;:0.25,&quot;crosshatchAngle&quot;:0.25,&quot;crosshatchContrast&quot;:0.3333333333333333,&quot;crosshatchEdges&quot;:0.5,&quot;crosshatchLineWeight&quot;:0,&quot;crosshatchWave&quot;:0.33,&quot;crosshatchWaveFrequency&quot;:0.2222222222222222,&quot;kuwahara&quot;:0,&quot;kuwaharaRadius&quot;:0.14285714285714285,&quot;kuwaharaSharpness&quot;:0.3125,&quot;kuwaharaSaturation&quot;:0.5},&quot;lut&quot;:null,&quot;colorSpace&quot;:&quot;rec709&quot;,&quot;wheels&quot;:{&quot;shadows&quot;:{&quot;hue&quot;:210,&quot;amount&quot;:0.1,&quot;level&quot;:-0.03},&quot;midtones&quot;:{&quot;hue&quot;:0,&quot;amount&quot;:0,&quot;level&quot;:0},&quot;highlights&quot;:{&quot;hue&quot;:0,&quot;amount&quot;:0,&quot;level&quot;:0}}}" data-hf-id="hf-1k6v" id="mc-photo" src="assets/img/fan-macro.jpg" alt="Keratan kipas turbo blower">
+    </div>
+    <div data-hf-id="hf-8abj" id="mc-wash"></div>
+    <div data-hf-id="hf-yszx" id="mc-r1" class="mc-row">
+      <div data-hf-id="hf-f6wb" class="mc-num"><span data-hf-id="hf-d71q" id="mc-count">33,000</span></div>
+      <div data-hf-id="hf-w8s3" class="mc-lbl">PUSINGAN SEMINIT</div>
+    </div>
+    <div data-hf-id="hf-2r3y" id="mc-r2" class="mc-row">
+      <div data-hf-id="hf-bcel" class="mc-num">300W</div>
+      <div data-hf-id="hf-gu0r" class="mc-lbl">MOTOR TERAS KUPRUM</div>
+    </div>
+    <div data-hf-id="hf-8wtr" id="mc-r3" class="mc-row">
+      <div data-hf-id="hf-2hbp" class="mc-num">2.6 m³</div>
+      <div data-hf-id="hf-gws9" class="mc-lbl">ANGIN SEMINIT</div>
+    </div>
+  </div>
+  <script>
+    (function () {
+      const tl = gsap.timeline({ paused: true });
+      // arrive out of the zoom-through, then a steady push on the turbine
+      tl.fromTo("#mc-cam", { scale: 1.9, filter: "blur(16px)" }, { scale: 1.3, filter: "blur(0px)", duration: 0.5, ease: "expo.out" }, 0);
+      tl.to("#mc-cam", { scale: 1.42, duration: 3.25, ease: "power1.inOut" }, 0.5);
+      tl.fromTo("#mc-wash", { opacity: 0 }, { opacity: 1, duration: 0.3 }, 0.3);
+      // spec rows land one by one
+      const counter = { v: 0 };
+      tl.fromTo(counter, { v: 0 }, {
+        v: 33000, duration: 0.9, ease: "power2.out",
+        onUpdate: () => {
+          const el = document.getElementById("mc-count");
+          if (el) el.textContent = (Math.round(counter.v / 100) * 100).toLocaleString("en-US");
+        },
+      }, 0.5);
+      tl.fromTo("#mc-r1", { opacity: 0, x: -40 }, { opacity: 1, x: 0, duration: 0.4, ease: "expo.out" }, 0.45);
+      tl.fromTo("#mc-r2", { opacity: 0, filter: "blur(8px)" }, { opacity: 1, filter: "blur(0px)", duration: 0.18, ease: "power2.out" }, 1.95);
+      tl.fromTo("#mc-r3 .mc-num", { opacity: 0, scale: 1.25 }, { opacity: 1, scale: 1, duration: 0.35, ease: "expo.out", transformOrigin: "0% 50%" }, 2.55);
+      tl.fromTo("#mc-r3 .mc-lbl", { opacity: 0 }, { opacity: 1, duration: 0.2 }, 2.65);
+      // blur swap out
+      tl.to(["#mc-r1", "#mc-r2", "#mc-r3", "#mc-wash"], { opacity: 0, filter: "blur(8px)", duration: 0.2, ease: "power2.in" }, 3.78);
+      tl.to("#mc-cam", { filter: "blur(10px)", opacity: 0, duration: 0.22, ease: "power2.in" }, 3.78);
+      window.__timelines["macro"] = tl;
+    })();
+  </script>
+</template>

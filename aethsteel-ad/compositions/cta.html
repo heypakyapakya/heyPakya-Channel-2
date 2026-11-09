@@ -1,0 +1,139 @@
+<template>
+  <style>
+    #root {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+    }
+    #ct-ground {
+      position: absolute;
+      inset: 0;
+    }
+    #ct-logo {
+      position: absolute;
+      left: 280px;
+      top: 230px;
+      width: 520px;
+      height: 102px;
+      background: #f5f1e8;
+      -webkit-mask: url(assets/img/logo.png) center / contain no-repeat;
+      mask: url(assets/img/logo.png) center / contain no-repeat;
+    }
+    #ct-shadow {
+      position: absolute;
+      left: 150px;
+      top: 845px;
+      width: 820px;
+      height: 90px;
+      border-radius: 50%;
+      background: radial-gradient(ellipse at center, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0.35) 50%, rgba(0, 0, 0, 0) 72%);
+    }
+    #ct-prod {
+      position: absolute;
+      left: 110px;
+      top: 410px;
+      width: 860px;
+      height: 450px;
+    }
+    #ct-kit {
+      position: absolute;
+      left: 80px;
+      top: 905px;
+      width: 330px;
+      height: 249px;
+    }
+    #ct-kit-txt {
+      position: absolute;
+      left: 450px;
+      top: 950px;
+      width: 490px;
+      font-family: var(--font-body);
+      font-weight: 800;
+      font-size: 46px;
+      line-height: 1.25;
+      color: var(--ink);
+    }
+    #ct-kit-txt .g {
+      color: var(--gold-hi);
+    }
+    #ct-btn {
+      position: absolute;
+      left: 80px;
+      top: 1185px;
+      width: 860px;
+      height: 128px;
+      border-radius: 22px;
+      background: #ffc531;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 22px;
+      box-shadow: 0 14px 40px rgba(0, 0, 0, 0.45);
+    }
+    #ct-btn svg {
+      width: 64px;
+      height: 64px;
+      flex: none;
+    }
+    #ct-btn-txt {
+      font-family: var(--font-body);
+      font-weight: 800;
+      font-size: 50px;
+      color: #141210;
+      white-space: nowrap;
+    }
+    #ct-btn-sheen {
+      position: absolute;
+      top: -40px;
+      left: -260px;
+      width: 160px;
+      height: 220px;
+      background: linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.6) 50%, rgba(255, 255, 255, 0) 100%);
+    }
+    #ct-arrow {
+      position: absolute;
+      left: 480px;
+      top: 1350px;
+      width: 120px;
+      height: 120px;
+    }
+  </style>
+  <div id="root" data-composition-id="cta" data-width="1080" data-height="1920">
+    <div id="ct-ground" class="studio"></div>
+    <div id="ct-logo"></div>
+    <div id="ct-shadow"></div>
+    <img id="ct-prod" src="assets/img/hero.png" alt="AETHSTEEL 998VF" />
+    <img id="ct-kit" src="assets/img/kit.png" alt="2 bateri dan set aksesori" />
+    <div id="ct-kit-txt">+ <span class="g">2 bateri</span><br />+ set aksesori<br />dalam kotak</div>
+    <div id="ct-btn">
+      <svg viewBox="0 0 64 64" aria-hidden="true">
+        <path d="M9 22 H55 L50 56 H14 Z" fill="none" stroke="#141210" stroke-width="5" stroke-linejoin="round" />
+        <path d="M24 30 V18 a8 8 0 0 1 16 0 V30" fill="none" stroke="#141210" stroke-width="5" stroke-linecap="round" />
+        <path d="M18 42 H46" stroke="#141210" stroke-width="5" stroke-linecap="round" />
+      </svg>
+      <div id="ct-btn-txt" data-var-text="ctaText">Tekan beg kuning sekarang</div>
+      <div id="ct-btn-sheen"></div>
+    </div>
+    <svg id="ct-arrow" viewBox="0 0 120 120" aria-hidden="true">
+      <path id="ct-arrow-p" d="M60 10 V96 M28 66 L60 98 L92 66" fill="none" stroke="#ffc531" stroke-width="10" stroke-linecap="round" stroke-linejoin="round" pathLength="1" />
+    </svg>
+  </div>
+  <script>
+    (function () {
+      const tl = gsap.timeline({ paused: true });
+      // colour flood: the studio rises over the last photo
+      tl.fromTo("#ct-ground", { clipPath: "inset(100% 0% 0% 0%)" }, { clipPath: "inset(0% 0% 0% 0%)", duration: 0.4, ease: "power2.inOut" }, 0);
+      tl.fromTo("#ct-prod", { x: 700, opacity: 0, filter: "blur(14px)" }, { x: 0, opacity: 1, filter: "blur(0px)", duration: 0.55, ease: "expo.out" }, 0.2);
+      tl.fromTo("#ct-shadow", { opacity: 0 }, { opacity: 1, duration: 0.4 }, 0.35);
+      tl.fromTo("#ct-logo", { opacity: 0, filter: "blur(8px)" }, { opacity: 1, filter: "blur(0px)", duration: 0.2 }, 0.35);
+      tl.fromTo("#ct-kit", { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.45, ease: "expo.out" }, 0.5);
+      tl.fromTo("#ct-kit-txt", { opacity: 0, filter: "blur(6px)" }, { opacity: 1, filter: "blur(0px)", duration: 0.18 }, 0.58);
+      tl.fromTo("#ct-btn", { scale: 0.6, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.45, ease: "back.out(1.4)" }, 0.65);
+      tl.fromTo("#ct-arrow-p", { strokeDasharray: 1, strokeDashoffset: 1 }, { strokeDasharray: 1, strokeDashoffset: 0, duration: 0.4, ease: "power2.out" }, 1.0);
+      tl.fromTo("#ct-btn-sheen", { x: 0, rotation: 20 }, { x: 1300, rotation: 20, duration: 0.8, ease: "power2.inOut" }, 1.5);
+      tl.fromTo("#ct-arrow", { y: 0 }, { y: 18, duration: 0.5, ease: "power2.inOut" }, 2.2);
+      window.__timelines["cta"] = tl;
+    })();
+  </script>
+</template>

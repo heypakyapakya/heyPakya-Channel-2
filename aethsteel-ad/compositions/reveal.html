@@ -1,0 +1,125 @@
+<template>
+  <style>
+    #root {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+      background: #0b0a09;
+    }
+    #rv-cam {
+      position: absolute;
+      inset: 0;
+      transform-origin: 773px 981px;
+    }
+    #rv-num {
+      position: absolute;
+      left: 0;
+      width: 1080px;
+      top: 470px;
+      text-align: center;
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 330px;
+      line-height: 1;
+      letter-spacing: 0.02em;
+      color: transparent;
+      -webkit-text-stroke: 3px rgba(217, 178, 95, 0.75);
+    }
+    #rv-logo {
+      position: absolute;
+      left: 240px;
+      top: 270px;
+      width: 600px;
+      height: 118px;
+      background: #f5f1e8;
+      -webkit-mask: url(assets/img/logo.png) center / contain no-repeat;
+      mask: url(assets/img/logo.png) center / contain no-repeat;
+    }
+    #rv-shadow {
+      position: absolute;
+      left: 110px;
+      top: 1135px;
+      width: 900px;
+      height: 120px;
+      border-radius: 50%;
+      background: radial-gradient(ellipse at center, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0.4) 45%, rgba(0, 0, 0, 0) 72%);
+    }
+    #rv-prod {
+      position: absolute;
+      left: 40px;
+      top: 640px;
+      width: 1000px;
+      height: 523px;
+    }
+    #rv-prod img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+    }
+    #rv-sheen {
+      position: absolute;
+      inset: 0;
+      -webkit-mask: url(assets/img/hero.png) center / 100% 100% no-repeat;
+      mask: url(assets/img/hero.png) center / 100% 100% no-repeat;
+      overflow: hidden;
+    }
+    #rv-sheen-bar {
+      position: absolute;
+      top: -100px;
+      left: -400px;
+      width: 260px;
+      height: 760px;
+      background: linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, rgba(255, 246, 225, 0.55) 50%, rgba(255, 255, 255, 0) 100%);
+    }
+    #rv-sub {
+      position: absolute;
+      left: 80px;
+      width: 920px;
+      top: 1190px;
+      text-align: center;
+      font-family: var(--font-body);
+      font-weight: 800;
+      font-size: 52px;
+      color: var(--ink);
+    }
+    #rv-sub .g {
+      color: var(--gold);
+    }
+  </style>
+  <div id="root" data-composition-id="reveal" data-width="1080" data-height="1920">
+    <div class="studio"></div>
+    <div id="rv-cam">
+      <div id="rv-num">998VF</div>
+      <div id="rv-logo"></div>
+      <div id="rv-shadow"></div>
+      <div id="rv-prod">
+        <img src="assets/img/hero.png" alt="AETHSTEEL 998VF cordless blower" />
+        <div id="rv-sheen"><div id="rv-sheen-bar"></div></div>
+      </div>
+      <div id="rv-sub">Peniup <span class="g">+</span> Penyedut Tanpa Wayar</div>
+    </div>
+  </div>
+  <script>
+    (function () {
+      const tl = gsap.timeline({ paused: true });
+      // product lands from the zoom-through
+      tl.fromTo("#rv-prod", { scale: 1.7, y: -160, opacity: 0.3, filter: "blur(16px)" },
+        { scale: 1, y: 0, opacity: 1, filter: "blur(0px)", duration: 0.55, ease: "expo.out" }, 0);
+      tl.fromTo("#rv-shadow", { opacity: 0, scaleX: 0.6 }, { opacity: 1, scaleX: 1, duration: 0.5, ease: "expo.out" }, 0.1);
+      // giant outline model number behind, letters tracking in
+      tl.fromTo("#rv-num", { opacity: 0, scale: 1.35 }, { opacity: 1, scale: 1, duration: 0.7, ease: "expo.out" }, 0.15);
+      // logo per-line blur in
+      tl.fromTo("#rv-logo", { opacity: 0, filter: "blur(8px)" }, { opacity: 1, filter: "blur(0px)", duration: 0.2, ease: "power2.out" }, 0.55);
+      // light sweep across the body
+      tl.fromTo("#rv-sheen-bar", { x: 0, rotation: 18 }, { x: 1700, rotation: 18, duration: 0.9, ease: "power2.inOut" }, 0.7);
+      tl.fromTo("#rv-sub", { opacity: 0, filter: "blur(8px)" }, { opacity: 1, filter: "blur(0px)", duration: 0.18 }, 1.05);
+      // slow camera drift while it holds
+      tl.fromTo("#rv-cam", { scale: 1 }, { scale: 1.04, duration: 3.0, ease: "none" }, 0);
+      // zoom through the fan intake (≈ 73%, 65% of the product)
+      tl.to("#rv-cam", { scale: 6, duration: 0.42, ease: "power3.in" }, 3.18);
+      tl.to(["#rv-num", "#rv-logo", "#rv-sub"], { opacity: 0, duration: 0.2 }, 3.18);
+      window.__timelines["reveal"] = tl;
+    })();
+  </script>
+</template>

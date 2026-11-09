@@ -1,0 +1,113 @@
+<template>
+  <style>
+    #root {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+      background: #0b0a09;
+    }
+    #dt-stage {
+      position: absolute;
+      inset: 0;
+    }
+    #dt-shadow {
+      position: absolute;
+      left: 200px;
+      top: 1330px;
+      width: 800px;
+      height: 110px;
+      border-radius: 50%;
+      background: radial-gradient(ellipse at center, rgba(0, 0, 0, 0.75) 0%, rgba(0, 0, 0, 0.35) 50%, rgba(0, 0, 0, 0) 72%);
+    }
+    #dt-prod {
+      position: absolute;
+      left: 100px;
+      top: 560px;
+      width: 927px;
+      height: 826px;
+    }
+    #dt-lines {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 1080px;
+      height: 1920px;
+      overflow: visible;
+    }
+    #dt-lines path {
+      fill: none;
+      stroke: #d9b25f;
+      stroke-width: 4;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+    .dt-dot {
+      position: absolute;
+      width: 30px;
+      height: 30px;
+      margin: -15px 0 0 -15px;
+      border-radius: 50%;
+      border: 5px solid #f6e3a6;
+      background: #141210;
+    }
+    .dt-lbl {
+      position: absolute;
+      left: 80px;
+      font-family: var(--font-body);
+      font-weight: 800;
+      font-size: 50px;
+      line-height: 1;
+      color: var(--ink);
+      white-space: nowrap;
+    }
+    .dt-lbl b {
+      color: var(--gold-hi);
+      font-weight: 800;
+    }
+    #dt-l1 {
+      top: 250px;
+    }
+    #dt-l2 {
+      top: 380px;
+    }
+    #dt-l3 {
+      top: 510px;
+    }
+  </style>
+  <div id="root" data-composition-id="details" data-width="1080" data-height="1920">
+    <div class="studio"></div>
+    <div id="dt-stage">
+      <div id="dt-shadow"></div>
+      <img id="dt-prod" src="assets/img/hero2.png" alt="Pemegang dan bateri AETHSTEEL 998VF" />
+      <svg id="dt-lines" viewBox="0 0 1080 1920">
+        <path id="dt-p1" pathLength="1" d="M80 322 L560 322 L711 776" />
+        <path id="dt-p2" pathLength="1" d="M80 452 L600 452 L827 946" />
+        <path id="dt-p3" pathLength="1" d="M80 582 L520 582 L796 1271" />
+      </svg>
+      <div id="dt-d1" class="dt-dot" style="left: 711px; top: 776px"></div>
+      <div id="dt-d2" class="dt-dot" style="left: 827px; top: 946px"></div>
+      <div id="dt-d3" class="dt-dot" style="left: 796px; top: 1271px"></div>
+      <div id="dt-l1" class="dt-lbl">Suis laju <b>boleh laras</b></div>
+      <div id="dt-l2" class="dt-lbl">Pemegang <b>anti-gelincir</b></div>
+      <div id="dt-l3" class="dt-lbl">Bateri litium <b>21V</b></div>
+    </div>
+  </div>
+  <script>
+    (function () {
+      const tl = gsap.timeline({ paused: true });
+      // blur swap in on the same stage
+      tl.fromTo("#dt-prod", { opacity: 0, filter: "blur(10px)", x: 60 }, { opacity: 1, filter: "blur(0px)", x: 0, duration: 0.5, ease: "expo.out" }, 0);
+      tl.fromTo("#dt-shadow", { opacity: 0 }, { opacity: 1, duration: 0.4 }, 0.1);
+      const beats = [0.55, 1.55, 2.55];
+      [1, 2, 3].forEach((i, k) => {
+        const t = beats[k];
+        tl.fromTo("#dt-l" + i, { opacity: 0, filter: "blur(6px)" }, { opacity: 1, filter: "blur(0px)", duration: 0.15, ease: "power2.out" }, t);
+        tl.fromTo("#dt-p" + i, { strokeDasharray: 1, strokeDashoffset: 1 }, { strokeDasharray: 1, strokeDashoffset: 0, duration: 0.45, ease: "power2.inOut" }, t + 0.05);
+        tl.fromTo("#dt-d" + i, { opacity: 0, scale: 0.2 }, { opacity: 1, scale: 1, duration: 0.3, ease: "back.out(1.6)" }, t + 0.45);
+      });
+      // vertical whip out
+      tl.to("#dt-stage", { y: -1500, duration: 0.3, ease: "power3.in" }, 4.1);
+      window.__timelines["details"] = tl;
+    })();
+  </script>
+</template>
