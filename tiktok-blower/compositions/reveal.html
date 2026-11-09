@@ -1,0 +1,160 @@
+<template>
+  <style>
+    #root {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+      font-family: "Inter", sans-serif;
+    }
+    #rv-bg {
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(55% 32% at 50% 46%, rgba(232, 50, 43, 0.42) 0%, rgba(232, 50, 43, 0) 70%),
+        radial-gradient(120% 60% at 50% 105%, #22262c 0%, #07090c 62%);
+    }
+    #rv-rays {
+      position: absolute;
+      left: -300px;
+      top: -200px;
+      width: 1680px;
+      height: 1400px;
+      background: conic-gradient(from 180deg at 50% 0%, rgba(255, 220, 170, 0) 0deg, rgba(255, 220, 170, 0.1) 8deg, rgba(255, 220, 170, 0) 16deg, rgba(255, 220, 170, 0.07) 26deg, rgba(255, 220, 170, 0) 36deg, rgba(255, 220, 170, 0) 324deg, rgba(255, 220, 170, 0.08) 334deg, rgba(255, 220, 170, 0) 344deg, rgba(255, 220, 170, 0.1) 352deg, rgba(255, 220, 170, 0) 360deg);
+    }
+    #rv-floor {
+      position: absolute;
+      left: 140px;
+      width: 800px;
+      top: 990px;
+      height: 70px;
+      border-radius: 50%;
+      background: radial-gradient(50% 50% at 50% 50%, rgba(0, 0, 0, 0.85), rgba(0, 0, 0, 0));
+    }
+    #rv-kicker {
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 250px;
+      text-align: center;
+      font-size: 46px;
+      font-weight: 800;
+      letter-spacing: 0.38em;
+      color: #f2b33d;
+    }
+    #rv-prod-wrap {
+      position: absolute;
+      left: 40px;
+      top: 400px;
+      width: 1000px;
+      height: 620px;
+    }
+    #rv-prod {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+    #rv-sweep {
+      position: absolute;
+      inset: 0;
+      -webkit-mask-image: url(assets/img/blower-cutout.png);
+      mask-image: url(assets/img/blower-cutout.png);
+      -webkit-mask-size: 100% 100%;
+      mask-size: 100% 100%;
+      overflow: hidden;
+    }
+    #rv-sweep-bar {
+      position: absolute;
+      top: -100px;
+      left: 0;
+      width: 260px;
+      height: 820px;
+      background: linear-gradient(90deg, rgba(255, 255, 255, 0), rgba(255, 245, 230, 0.75), rgba(255, 255, 255, 0));
+    }
+    #rv-title {
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 1050px;
+      text-align: center;
+      font-family: "League Gothic", sans-serif;
+      font-size: 164px;
+      white-space: nowrap;
+      line-height: 1;
+      letter-spacing: 0.04em;
+      color: #f4f1ea;
+    }
+    #rv-title .m {
+      color: #e8322b;
+    }
+    #rv-sub {
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 1235px;
+      text-align: center;
+      font-size: 44px;
+      font-weight: 700;
+      color: rgba(244, 241, 234, 0.85);
+      letter-spacing: 0.02em;
+    }
+    .rv-p {
+      position: absolute;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #ffd59a;
+      box-shadow: 0 0 12px 3px rgba(255, 180, 90, 0.7);
+      opacity: 0;
+    }
+  </style>
+  <div id="root" data-composition-id="reveal" data-width="1080" data-height="1920">
+    <div id="rv-bg"></div>
+    <div id="rv-rays"></div>
+    <div class="rv-p" id="rv-p1" style="left: 120px; top: 1300px"></div>
+    <div class="rv-p" id="rv-p2" style="left: 260px; top: 1500px"></div>
+    <div class="rv-p" id="rv-p3" style="left: 420px; top: 1380px"></div>
+    <div class="rv-p" id="rv-p4" style="left: 610px; top: 1560px"></div>
+    <div class="rv-p" id="rv-p5" style="left: 780px; top: 1340px"></div>
+    <div class="rv-p" id="rv-p6" style="left: 930px; top: 1480px"></div>
+    <div class="rv-p" id="rv-p7" style="left: 190px; top: 900px"></div>
+    <div class="rv-p" id="rv-p8" style="left: 880px; top: 820px"></div>
+    <div class="rv-p" id="rv-p9" style="left: 520px; top: 1250px"></div>
+    <div class="rv-p" id="rv-p10" style="left: 340px; top: 700px"></div>
+    <div id="rv-kicker">INI RAHSIANYA</div>
+    <div id="rv-floor"></div>
+    <div id="rv-prod-wrap">
+      <img id="rv-prod" src="assets/img/blower-cutout.png" alt="AETHSTEEL 998VF" />
+      <div id="rv-sweep"><div id="rv-sweep-bar"></div></div>
+    </div>
+    <div id="rv-title"><span id="rv-brand" data-var-text="brand">AETHSTEEL</span> <span id="rv-model" class="m" data-var-text="model">998VF</span></div>
+    <div id="rv-sub">Peniup &amp; Penyedut Tanpa Wayar</div>
+  </div>
+  <script>
+    window.__timelines = window.__timelines || {};
+    const tl = gsap.timeline({ paused: true });
+    tl.fromTo("#rv-bg", { opacity: 0.4 }, { opacity: 1, duration: 0.5, ease: "power2.out" }, 0);
+    tl.fromTo("#rv-rays", { rotation: -6, opacity: 0 }, { rotation: 6, opacity: 1, duration: 2.6, ease: "none", transformOrigin: "50% 0%" }, 0);
+    tl.fromTo("#rv-kicker", { opacity: 0, scale: 1.2 }, { opacity: 1, scale: 1, duration: 0.5, ease: "power3.out" }, 0.1);
+    // Product slams in, lands at 0.55 s (impact)
+    tl.fromTo("#rv-prod-wrap", { scale: 1.35, opacity: 0, y: -40, filter: "blur(24px)" },
+      { scale: 1, opacity: 1, y: 0, filter: "blur(0px)", duration: 0.5, ease: "power2.in" }, 0.05);
+    tl.fromTo("#rv-floor", { opacity: 0, scaleX: 0.4 }, { opacity: 1, scaleX: 1, duration: 0.3, ease: "power3.out" }, 0.5);
+    // landing shake
+    tl.fromTo("#rv-prod-wrap", { x: 0 }, { keyframes: [{ x: -10, duration: 0.04 }, { x: 8, duration: 0.04 }, { x: -5, duration: 0.04 }, { x: 0, duration: 0.05 }] }, 0.56);
+    tl.fromTo("#rv-sweep-bar", { x: -320 }, { x: 1100, duration: 0.8, ease: "power2.inOut" }, 0.7);
+    tl.fromTo("#rv-brand", { opacity: 0, y: 60, clipPath: "inset(100% 0 0 0)" }, { opacity: 1, y: 0, clipPath: "inset(0% 0 0 0)", duration: 0.4, ease: "power3.out" }, 0.75);
+    tl.fromTo("#rv-model", { opacity: 0, y: 60, clipPath: "inset(100% 0 0 0)" }, { opacity: 1, y: 0, clipPath: "inset(0% 0 0 0)", duration: 0.4, ease: "power3.out" }, 0.92);
+    tl.fromTo("#rv-sub", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.4, ease: "power2.out" }, 1.15);
+    tl.fromTo("#rv-prod", { scale: 1 }, { scale: 1.05, duration: 2.0, ease: "none" }, 0.6);
+    // embers rise (deterministic offsets)
+    const drift = [-40, 30, -20, 50, -30, 20, 35, -45, 15, -25];
+    for (let i = 0; i < 10; i++) {
+      const d = 0.4 + (i % 5) * 0.12;
+      tl.fromTo("#rv-p" + (i + 1), { opacity: 0, y: 0, x: 0 },
+        { keyframes: [{ opacity: 0.9, duration: 0.3 }, { opacity: 0, duration: 1.5 }], y: -380 - (i % 3) * 90, x: drift[i], duration: 1.8, ease: "none" }, d);
+    }
+    window.__timelines["reveal"] = tl;
+  </script>
+</template>

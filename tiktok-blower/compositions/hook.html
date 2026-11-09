@@ -1,0 +1,71 @@
+<template>
+  <style>
+    #root {
+      position: absolute;
+      inset: 0;
+      font-family: "Inter", sans-serif;
+    }
+    #hk-shade {
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 760px;
+      height: 760px;
+      background: linear-gradient(180deg, rgba(7, 9, 12, 0) 0%, rgba(7, 9, 12, 0.55) 35%, rgba(7, 9, 12, 0.55) 70%, rgba(7, 9, 12, 0) 100%);
+    }
+    #hk-title {
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 860px;
+      text-align: center;
+      font-family: "League Gothic", sans-serif;
+      font-size: 178px;
+      line-height: 0.92;
+      color: #f4f1ea;
+      text-transform: uppercase;
+      letter-spacing: 0.01em;
+      text-shadow: 0 8px 40px rgba(0, 0, 0, 0.6);
+    }
+    #hk-title .hl {
+      display: inline-block;
+      color: #07090c;
+      background: #f2b33d;
+      padding: 0 22px;
+      margin-top: 10px;
+    }
+    #hk-sub {
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 1210px;
+      text-align: center;
+      font-size: 54px;
+      font-weight: 800;
+      color: #f4f1ea;
+      text-shadow: 0 4px 24px rgba(0, 0, 0, 0.8);
+    }
+    #hk-sub .g {
+      color: #f2b33d;
+    }
+  </style>
+  <div id="root" data-composition-id="hook" data-width="1080" data-height="1920">
+    <div id="hk-shade"></div>
+    <div id="hk-title">
+      <div id="hk-l1">Daun kering</div>
+      <div id="hk-l2"><span class="hl">penuh laman?</span></div>
+    </div>
+    <div id="hk-sub"><span id="hk-s1">Jangan sapu dulu…</span> <span id="hk-s2" class="g">tengok ni.</span></div>
+  </div>
+  <script>
+    window.__timelines = window.__timelines || {};
+    const tl = gsap.timeline({ paused: true });
+    // Hook is on screen at frame 0 (thumbnail), settling in
+    tl.fromTo("#hk-l1", { scale: 1.08, opacity: 1 }, { scale: 1, duration: 0.6, ease: "power3.out" }, 0);
+    tl.fromTo("#hk-l2", { scale: 1.12, opacity: 1 }, { scale: 1, duration: 0.7, ease: "power3.out" }, 0);
+    tl.fromTo("#hk-s1", { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.3, ease: "power3.out" }, 0.85);
+    tl.fromTo("#hk-s2", { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.3, ease: "power3.out" }, 1.35);
+    tl.to("#hk-title, #hk-sub", { opacity: 0, y: -30, duration: 0.18, ease: "power2.in" }, 2.2);
+    window.__timelines["hook"] = tl;
+  </script>
+</template>

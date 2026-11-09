@@ -1,0 +1,43 @@
+<template>
+  <style>
+    #root {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+    }
+    #fx-flash {
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(70% 50% at 50% 50%, #fff6e8 0%, #ffd9a8 60%, #ff9f5a 100%);
+      opacity: 0;
+    }
+    #fx-dip {
+      position: absolute;
+      inset: 0;
+      background: #000;
+      opacity: 0;
+    }
+  </style>
+  <div id="root" data-composition-id="fx" data-width="1080" data-height="1920" data-layout-ignore>
+    <div id="fx-dip"></div>
+    <div id="fx-flash"></div>
+  </div>
+  <script>
+    window.__timelines = window.__timelines || {};
+    const tl = gsap.timeline({ paused: true });
+    // warm light flashes on the cuts into each product scene
+    [2.4, 8.6, 16.3, 24.37].forEach((t, i) => {
+      const peak = i === 0 ? 0.9 : 0.65;
+      tl.fromTo("#fx-flash", { opacity: peak }, { opacity: 0, duration: 0.32, ease: "power2.out", immediateRender: false }, t);
+    });
+    // dip cuts back into footage
+    [5.0, 11.4, 19.2].forEach((t) => {
+      tl.fromTo("#fx-dip", { opacity: 0.55 }, { opacity: 0, duration: 0.2, ease: "power2.out", immediateRender: false }, t);
+    });
+    // internal footage cuts: 3-frame dip
+    [13.65, 21.22].forEach((t) => {
+      tl.fromTo("#fx-dip", { opacity: 0.35 }, { opacity: 0, duration: 0.12, ease: "power1.out", immediateRender: false }, t);
+    });
+    window.__timelines["fx"] = tl;
+  </script>
+</template>

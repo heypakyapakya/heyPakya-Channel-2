@@ -1,0 +1,59 @@
+<template>
+  <style>
+    #root {
+      position: absolute;
+      inset: 0;
+      font-family: "Inter", sans-serif;
+    }
+    .cg {
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 1150px;
+      text-align: center;
+      font-size: 84px;
+      font-weight: 900;
+      line-height: 1.05;
+      color: #ffffff;
+      -webkit-text-stroke: 14px #07090c;
+      paint-order: stroke fill;
+      text-shadow: 0 6px 22px rgba(0, 0, 0, 0.55);
+      opacity: 0;
+      overflow: visible;
+    }
+    .cg .k {
+      color: #f2b33d;
+    }
+  </style>
+  <div id="root" data-composition-id="captions" data-width="1080" data-height="1920">
+    <div class="cg" id="cg1">Tak payah <span class="k">sapu</span></div>
+    <div class="cg" id="cg2"><span class="k">lama-lama</span></div>
+    <div class="cg" id="cg3"><span class="k">Tiup</span> je semua</div>
+    <div class="cg" id="cg4">ke satu tempat</div>
+    <div class="cg" id="cg5"><span class="k">Cepat,</span> mudah,</div>
+    <div class="cg" id="cg6">tak <span class="k">penat</span> sangat</div>
+    <div class="cg" id="cg7">Dah <span class="k">kumpul,</span></div>
+    <div class="cg" id="cg8"><span class="k">sedut</span> pulak</div>
+    <div class="cg" id="cg9">Laman <span class="k">bersih,</span></div>
+    <div class="cg" id="cg10">kerja pun <span class="k">settle</span></div>
+  </div>
+  <script>
+    window.__timelines = window.__timelines || {};
+    const tl = gsap.timeline({ paused: true });
+    // [start, end] in seconds, from the dialogue word timings
+    const groups = [
+      [6.2, 7.1], [7.1, 7.9],
+      [11.42, 12.1], [12.1, 13.3],
+      [13.75, 15.3], [15.3, 16.28],
+      [19.24, 20.08], [20.08, 21.1],
+      [21.6, 23.08], [23.08, 24.3],
+    ];
+    groups.forEach(([s, e], i) => {
+      const id = "#cg" + (i + 1);
+      tl.fromTo(id, { opacity: 0, scale: 0.82, y: 16 }, { opacity: 1, scale: 1, y: 0, duration: 0.14, ease: "back.out(2.5)" }, s);
+      tl.to(id, { opacity: 0, duration: 0.08, ease: "power2.in" }, e - 0.08);
+      tl.set(id, { opacity: 0, visibility: "hidden" }, e);
+    });
+    window.__timelines["captions"] = tl;
+  </script>
+</template>

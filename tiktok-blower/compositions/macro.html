@@ -1,0 +1,125 @@
+<template>
+  <style>
+    #root {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+      font-family: "Inter", sans-serif;
+      background: #07090c;
+    }
+    #mc-bg {
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(60% 40% at 50% 52%, rgba(70, 150, 255, 0.28) 0%, rgba(7, 9, 12, 0) 70%), #07090c;
+    }
+    #mc-img-wrap {
+      position: absolute;
+      left: -150px;
+      top: 270px;
+      width: 1080px;
+      height: 917px;
+    }
+    #mc-img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+    #mc-ring {
+      position: absolute;
+      left: 540px;
+      top: 945px;
+      width: 330px;
+      height: 330px;
+      margin-left: -165px;
+      margin-top: -165px;
+      border-radius: 50%;
+      border: 4px solid rgba(120, 190, 255, 0.9);
+      box-shadow: 0 0 40px rgba(90, 170, 255, 0.8), inset 0 0 40px rgba(90, 170, 255, 0.5);
+      opacity: 0;
+    }
+    #mc-kicker {
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 220px;
+      text-align: center;
+      font-size: 44px;
+      font-weight: 800;
+      letter-spacing: 0.3em;
+      color: #8fc4ff;
+      text-shadow: 0 3px 16px rgba(0, 0, 0, 0.95);
+    }
+    #mc-title {
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 286px;
+      text-align: center;
+      font-family: "League Gothic", sans-serif;
+      font-size: 130px;
+      line-height: 1;
+      color: #f4f1ea;
+      text-shadow: 0 6px 30px rgba(0, 0, 0, 0.9);
+    }
+    #mc-specs {
+      position: absolute;
+      left: 40px;
+      right: 140px;
+      top: 1150px;
+      display: flex;
+      justify-content: space-between;
+    }
+    .mc-spec {
+      width: 286px;
+      text-align: center;
+      padding: 22px 0 20px;
+      background: rgba(10, 16, 26, 0.78);
+      border-top: 4px solid #e8322b;
+    }
+    .mc-num {
+      font-family: "League Gothic", sans-serif;
+      font-size: 90px;
+      line-height: 1;
+      color: #f4f1ea;
+    }
+    .mc-lbl {
+      margin-top: 8px;
+      font-size: 28px;
+      font-weight: 700;
+      letter-spacing: 0.01em;
+      color: rgba(244, 241, 234, 0.8);
+    }
+  </style>
+  <div id="root" data-composition-id="macro" data-width="1080" data-height="1920">
+    <div id="mc-bg"></div>
+    <div id="mc-img-wrap">
+      <img id="mc-img" src="assets/img/turbo-cutout.png" alt="Kipas turbo" />
+    </div>
+    <div id="mc-ring"></div>
+    <div id="mc-kicker">APA DI DALAMNYA?</div>
+    <div id="mc-title">KIPAS TURBO</div>
+    <div id="mc-specs">
+      <div class="mc-spec" id="mc-s1"><div class="mc-num">300W</div><div class="mc-lbl">KUASA MOTOR</div></div>
+      <div class="mc-spec" id="mc-s2"><div class="mc-num">33,000</div><div class="mc-lbl">PUSINGAN/MINIT</div></div>
+      <div class="mc-spec" id="mc-s3"><div class="mc-num">2.6m³</div><div class="mc-lbl">ANGIN/MINIT</div></div>
+    </div>
+  </div>
+  <script>
+    window.__timelines = window.__timelines || {};
+    const tl = gsap.timeline({ paused: true });
+    // Macro push into the turbo fan
+    tl.fromTo("#mc-img-wrap", { scale: 1.0, opacity: 0, filter: "blur(10px)" },
+      { scale: 1.06, opacity: 1, filter: "blur(0px)", duration: 0.35, ease: "power3.out", transformOrigin: "64% 78%" }, 0);
+    tl.to("#mc-img-wrap", { scale: 1.3, duration: 2.45, ease: "none" }, 0.35);
+    tl.fromTo("#mc-ring", { opacity: 0, scale: 0.6 }, { opacity: 1, scale: 1.25, duration: 0.5, ease: "power3.out" }, 0.4);
+    tl.to("#mc-ring", { opacity: 0.35, scale: 1.4, duration: 1.8, ease: "none" }, 0.9);
+    tl.fromTo("#mc-kicker", { opacity: 0, y: -20 }, { opacity: 1, y: 0, duration: 0.3, ease: "power3.out" }, 0.05);
+    tl.fromTo("#mc-title", { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.35, ease: "power3.out" }, 0.2);
+    tl.fromTo("#mc-s1", { opacity: 0, y: 60, scale: 0.9 }, { opacity: 1, y: 0, scale: 1, duration: 0.3, ease: "back.out(2)" }, 0.75);
+    tl.fromTo("#mc-s2", { opacity: 0, y: 60, scale: 0.9 }, { opacity: 1, y: 0, scale: 1, duration: 0.3, ease: "back.out(2)" }, 1.05);
+    tl.fromTo("#mc-s3", { opacity: 0, y: 60, scale: 0.9 }, { opacity: 1, y: 0, scale: 1, duration: 0.3, ease: "back.out(2)" }, 1.35);
+    window.__timelines["macro"] = tl;
+  </script>
+</template>
