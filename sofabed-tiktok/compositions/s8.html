@@ -1,0 +1,56 @@
+<template>
+  <style>
+
+#root { position: absolute; inset: 0; font-family: 'Poppins', sans-serif; 
+  --cream: #F4E8D8;
+  --sand: #E6D2B8;
+  --cocoa: #2E1C11;
+  --amber: #F29A3A;
+  --amber-deep: #B85614;
+  --ink: #FFFFFF;
+ }
+.scrim-top { position: absolute; left: 0; top: 0; width: 1080px; height: 760px;
+  background: linear-gradient(180deg, rgba(20,12,6,0.62) 0%, rgba(20,12,6,0.28) 55%, rgba(20,12,6,0) 100%); }
+.scrim-bot { position: absolute; left: 0; top: 820px; width: 1080px; height: 1100px;
+  background: linear-gradient(0deg, rgba(20,12,6,0.70) 0%, rgba(20,12,6,0.45) 45%, rgba(20,12,6,0) 100%); }
+.dlg { position: absolute; left: 90px; width: 870px; top: 1010px; text-align: center; }
+.dlg .ln { font-family: 'Poppins', sans-serif; font-weight: 800; font-size: 64px; line-height: 1.16;
+  color: #fff; letter-spacing: -0.01em;
+  text-shadow: 0 0 2px #000, 0 3px 0 rgba(0,0,0,0.85), 0 6px 22px rgba(0,0,0,0.55); }
+.dlg .ln + .ln { margin-top: 10px; }
+.w { display: inline-block; }
+.hl { color: var(--amber); }
+.callout { position: absolute; left: 80px; top: 230px; width: 860px; }
+.kick { display: inline-block; font-family: 'Montserrat', sans-serif; font-weight: 900; font-size: 32px;
+  letter-spacing: 0.12em; color: var(--cocoa); background: var(--amber); padding: 10px 22px; border-radius: 10px; }
+.head { font-family: 'Montserrat', sans-serif; font-weight: 900; font-size: 104px; line-height: 0.98;
+  color: #fff; letter-spacing: -0.02em; margin-top: 22px;
+  text-shadow: 0 4px 0 rgba(0,0,0,0.45), 0 10px 30px rgba(0,0,0,0.5); }
+.sub { font-family: 'Poppins', sans-serif; font-weight: 600; font-size: 46px; color: var(--cream);
+  margin-top: 16px; text-shadow: 0 3px 14px rgba(0,0,0,0.7); }
+/* product-card scenes sit on the cream ground */
+.ptitle { position: absolute; left: 80px; top: 190px; width: 920px; text-align: center; }
+.ptitle .head { color: var(--cocoa); text-shadow: none; font-size: 96px; margin-top: 14px; }
+.ptitle .sub { color: var(--amber-deep); text-shadow: none; font-weight: 700; font-size: 44px; margin-top: 8px; }
+.ptitle .hl { color: var(--amber-deep); }
+
+
+  </style>
+  <div id="root" data-composition-id="s8" data-width="1080" data-height="1920" data-layout-allow-overlap>
+
+    <div class="ptitle" id="s8-title">
+      <div class="kick" id="s8-kick">UPGRADE</div>
+      <div class="head" id="s8-head"><span class="w">KALIS</span> <span class="w hl">KOTORAN</span></div>
+      <div class="sub" id="s8-sub">tak licin · tak mudah berbulu</div>
+    </div>
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+    tl.fromTo("#s8-kick", { opacity: 0, y: -20 }, { opacity: 1, y: 0, duration: 0.35, ease: "expo.out" }, 0.05);
+    tl.fromTo("#s8-head .w", { opacity: 0, filter: "blur(8px)" }, { opacity: 1, filter: "blur(0px)", duration: 0.18, ease: "power4.out", stagger: 0.09 }, 0.12);
+    tl.fromTo("#s8-sub", { opacity: 0, filter: "blur(8px)" }, { opacity: 1, filter: "blur(0px)", duration: 0.2, ease: "power4.out" }, 0.5);
+    tl.to("#s8-title", { opacity: 0, filter: "blur(8px)", duration: 0.16, ease: "power3.in" }, 2.4);
+
+    window.__timelines["s8"] = tl;
+  </script>
+</template>

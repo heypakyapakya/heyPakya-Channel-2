@@ -1,0 +1,69 @@
+<template>
+  <style>
+
+#root { position: absolute; inset: 0; font-family: 'Poppins', sans-serif; 
+  --cream: #F4E8D8;
+  --sand: #E6D2B8;
+  --cocoa: #2E1C11;
+  --amber: #F29A3A;
+  --amber-deep: #B85614;
+  --ink: #FFFFFF;
+ }
+.scrim-top { position: absolute; left: 0; top: 0; width: 1080px; height: 760px;
+  background: linear-gradient(180deg, rgba(20,12,6,0.62) 0%, rgba(20,12,6,0.28) 55%, rgba(20,12,6,0) 100%); }
+.scrim-bot { position: absolute; left: 0; top: 820px; width: 1080px; height: 1100px;
+  background: linear-gradient(0deg, rgba(20,12,6,0.70) 0%, rgba(20,12,6,0.45) 45%, rgba(20,12,6,0) 100%); }
+.dlg { position: absolute; left: 90px; width: 870px; top: 1010px; text-align: center; }
+.dlg .ln { font-family: 'Poppins', sans-serif; font-weight: 800; font-size: 64px; line-height: 1.16;
+  color: #fff; letter-spacing: -0.01em;
+  text-shadow: 0 0 2px #000, 0 3px 0 rgba(0,0,0,0.85), 0 6px 22px rgba(0,0,0,0.55); }
+.dlg .ln + .ln { margin-top: 10px; }
+.w { display: inline-block; }
+.hl { color: var(--amber); }
+.callout { position: absolute; left: 80px; top: 230px; width: 860px; }
+.kick { display: inline-block; font-family: 'Montserrat', sans-serif; font-weight: 900; font-size: 32px;
+  letter-spacing: 0.12em; color: var(--cocoa); background: var(--amber); padding: 10px 22px; border-radius: 10px; }
+.head { font-family: 'Montserrat', sans-serif; font-weight: 900; font-size: 104px; line-height: 0.98;
+  color: #fff; letter-spacing: -0.02em; margin-top: 22px;
+  text-shadow: 0 4px 0 rgba(0,0,0,0.45), 0 10px 30px rgba(0,0,0,0.5); }
+.sub { font-family: 'Poppins', sans-serif; font-weight: 600; font-size: 46px; color: var(--cream);
+  margin-top: 16px; text-shadow: 0 3px 14px rgba(0,0,0,0.7); }
+/* product-card scenes sit on the cream ground */
+.ptitle { position: absolute; left: 80px; top: 190px; width: 920px; text-align: center; }
+.ptitle .head { color: var(--cocoa); text-shadow: none; font-size: 96px; margin-top: 14px; }
+.ptitle .sub { color: var(--amber-deep); text-shadow: none; font-weight: 700; font-size: 44px; margin-top: 8px; }
+.ptitle .hl { color: var(--amber-deep); }
+
+
+  </style>
+  <div id="root" data-composition-id="s12" data-width="1080" data-height="1920" data-layout-allow-overlap data-composition-variables='[{&quot;id&quot;: &quot;cta&quot;, &quot;type&quot;: &quot;string&quot;, &quot;label&quot;: &quot;CTA&quot;, &quot;default&quot;: &quot;KLIK BEG KUNING&quot;}]'>
+
+    <div class="scrim-bot"></div>
+    <div id="s12-flash" style="position:absolute; inset:0; background:#fff; opacity:0;"></div>
+    <div class="dlg" id="s12-dlg">
+      <div class="ln" id="s12-l1"><span class="w">Harga</span> <span class="w">promo</span> <span class="w">+</span></div>
+      <div class="ln" id="s12-l2"><span class="w hl">PERCUMA</span> <span class="w hl">2</span> <span class="w hl">bantal!</span></div>
+    </div>
+    <div id="s12-cta" style="position:absolute; left:90px; width:870px; top:880px; text-align:center;">
+      <div id="s12-pill" style="display:inline-block; background:#FFD43B; color:#1d1206; font-family:'Montserrat',sans-serif; font-weight:900; font-size:78px; line-height:1; padding:30px 44px; border-radius:999px; box-shadow:0 16px 40px rgba(0,0,0,0.45);" data-var-text="cta">KLIK BEG KUNING</div>
+      <div id="s12-sub" style="display:inline-block; font-family:'Poppins',sans-serif; font-weight:800; font-size:44px; white-space:nowrap; color:#fff; margin-top:28px; background:rgba(30,18,10,0.82); padding:14px 30px; border-radius:18px;">Stok terhad — <span style="color:#FFD43B;">sebelum habis!</span></div><br/>
+      <svg id="s12-arrow" width="120" height="150" viewBox="0 0 120 150" style="margin-top:22px;">
+        <path d="M60 8 L60 118 M22 82 L60 124 L98 82" fill="none" stroke="#FFD43B" stroke-width="16" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </div>
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+    tl.fromTo("#s12-l1 .w", { opacity: 0, filter: "blur(8px)" }, { opacity: 1, filter: "blur(0px)", duration: 0.16, ease: "power4.out", stagger: 0.08 }, 0.15);
+    tl.fromTo("#s12-l2 .w", { opacity: 0, filter: "blur(8px)" }, { opacity: 1, filter: "blur(0px)", duration: 0.16, ease: "power4.out", stagger: 0.1 }, 0.5);
+    tl.to("#s12-dlg", { opacity: 0, filter: "blur(8px)", duration: 0.16, ease: "power3.in" }, 2.15);
+    tl.fromTo("#s12-flash", { opacity: 0 }, { opacity: 0.85, duration: 0.08, ease: "none" }, 2.92);
+    tl.to("#s12-flash", { opacity: 0, duration: 0.3, ease: "power2.out" }, 3.0);
+    tl.fromTo("#s12-pill", { opacity: 0, scale: 1.7 }, { opacity: 1, scale: 1, duration: 0.45, ease: "back.out(1.6)" }, 2.3);
+    tl.fromTo("#s12-sub", { opacity: 0, filter: "blur(8px)" }, { opacity: 1, filter: "blur(0px)", duration: 0.2, ease: "power4.out" }, 2.55);
+    tl.fromTo("#s12-arrow", { opacity: 0, y: -40 }, { opacity: 1, y: 0, duration: 0.4, ease: "expo.out" }, 2.75);
+    tl.to("#s12-arrow", { y: 18, duration: 0.35, ease: "power2.inOut", yoyo: true, repeat: 3 }, 3.3);
+
+    window.__timelines["s12"] = tl;
+  </script>
+</template>
