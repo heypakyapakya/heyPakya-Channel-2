@@ -23,14 +23,15 @@ Its `EX` table and camera `KEYS` are mirrored in the scene chip timings and in `
 (which writes the 72 sound-effect clips into `index.html`). Change a time in one place → change it in all three.
 
 ## Sound
-- Sound effects only (bundled Pixabay SFX): ticks on each hop landing, pops on chips, whooshes on scene changes,
-  a riser + bass hit + chime on the payoff 4 − 7 = −3.
-- **No music bed.** A 60 s track was generated with ElevenLabs (flow `C5JqFQfVlxnsKdR3nkAN`), but this
-  environment's network blocks `elevenlabsusercontent.com`, and adding that host was declined. To add it: drop the
-  file at `assets/audio/music.mp3` and add
-  `<audio id="music" class="clip" src="assets/audio/music.mp3" data-start="0" data-duration="60" data-track-index="6" data-volume="0.35" data-fade-out="1.5"></audio>`
-  inside `#root` in `index.html`.
-- No voiceover (none was asked for); large on-screen text carries it. Sound was measured, not heard.
+- **Voiceover (BM)**: 18 lines by ElevenLabs voice *Aisyah – Patient Malay School Tutor* (`JOCyls6Fdo4qfmTUnFrJ`,
+  model `eleven_multilingual_v2`, flow `1SXi6fizFPyP6uO6JDbZ`). Raw takes are `assets/voice/lNN.mp3`;
+  `tools/prep_voice.sh` trims silence, speeds them 12% (pitch kept) and levels them into `vNN.wav`.
+  Each line starts on its picture (table `VO` in `tools/build_index.py`); visual cues were moved to match
+  (labels in `def.html`, `arah.html`, highlight times in `world.html`). No line overlaps the next.
+- **Music**: ElevenLabs 60 s instrumental (`assets/audio/music.mp3`) at 0.16 under the voice, 1.5 s fade-out.
+- **Effects**: bundled Pixabay SFX at 80% of their earlier level: hop ticks, chip pops, scene whooshes,
+  riser + bass hit + chime on the payoff 4 − 7 = −3.
+- Sound was measured, not heard.
 
 ## Checks
 - `check`: 0 errors. Contrast 19/19 WCAG AA.
