@@ -14,7 +14,7 @@
 
     .side { position: absolute; font-weight: 900; text-shadow: 0 6px 0 rgba(8, 4, 30, 0.5); }
     .side .s1 { font-size: 58px; font-weight: 800; }
-    .side .s2 { font-size: 100px; line-height: 1.05; }
+    .side .s2 { font-size: 100px; line-height: 1.05; white-space: nowrap; }
     .tag { display: inline-block; padding: 16px 30px; border-radius: 24px; font-weight: 900; font-size: 50px; color: #1e1650; box-shadow: 0 8px 0 rgba(8, 4, 30, 0.45); }
 
   </style>
@@ -23,10 +23,10 @@
     <div id="arah-a" class="clip" data-start="0" data-duration="7.9" style="position: absolute; left: 110px; top: 250px; width: 860px">
       <div id="arah-a-in" class="side" style="left: 0"><div class="s1">Semakin ke kiri,</div><div class="s2 coral"><svg class="arrow" viewBox="0 0 100 60" width="96" height="58"><path d="M92 30H16M38 8L14 30l24 22" fill="none" stroke="currentColor" stroke-width="12" stroke-linecap="round" stroke-linejoin="round"/></svg> semakin KECIL</div></div>
     </div>
-    <div id="arah-b" class="clip" data-start="0" data-duration="7.9" style="position: absolute; right: 110px; top: 450px; width: 860px; height: 200px">
-      <div id="arah-b-in" class="side" style="right: 0; text-align: right"><div class="s1">Semakin ke kanan,</div><div class="s2 teal">semakin BESAR <svg class="arrow" viewBox="0 0 100 60" width="96" height="58"><path d="M8 30H84M62 8l24 22-24 22" fill="none" stroke="currentColor" stroke-width="12" stroke-linecap="round" stroke-linejoin="round"/></svg></div></div>
+    <div id="arah-b" class="clip" data-start="0" data-duration="7.9" style="position: absolute; left: 110px; top: 450px; width: 860px; height: 200px">
+      <div id="arah-b-in" class="side" style="left: 0"><div class="s1">Semakin ke kanan,</div><div class="s2 teal">semakin BESAR <svg class="arrow" viewBox="0 0 100 60" width="96" height="58"><path d="M8 30H84M62 8l24 22-24 22" fill="none" stroke="currentColor" stroke-width="12" stroke-linecap="round" stroke-linejoin="round"/></svg></div></div>
     </div>
-    <div id="arah-chips" class="clip abs" data-start="0" data-duration="7.9" style="top: 1110px">
+    <div id="arah-chips" class="clip abs" data-start="0" data-duration="7.9" style="top: 1200px">
       <div class="row" style="gap: 30px"><span id="arah-min" class="tag" style="background: #ff7a6a">terkecil = −5</span><span id="arah-max" class="tag" style="background: #3cc8d8">terbesar = 5</span></div>
     </div>
   </div>
