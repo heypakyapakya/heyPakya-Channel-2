@@ -1,0 +1,62 @@
+<template>
+  <style>
+    #root { position: absolute; inset: 0; font-family: "Nunito", sans-serif; color: #ffffff; }
+    .abs { position: absolute; left: 60px; right: 60px; text-align: center; }
+    .pill { display: inline-block; padding: 14px 34px; border-radius: 999px; background: #2e2478; border: 3px solid #6f63d9; font-weight: 900; font-size: 36px; letter-spacing: 0.08em; color: #ffffff; }
+    .big { font-weight: 900; font-size: 112px; line-height: 1.04; letter-spacing: -0.01em; text-shadow: 0 8px 0 rgba(8, 4, 30, 0.45); }
+    .mid { font-weight: 800; font-size: 58px; line-height: 1.18; text-shadow: 0 5px 0 rgba(8, 4, 30, 0.45); }
+    .w { display: inline-block; }
+    .row { display: flex; justify-content: center; align-items: center; gap: 22px; }
+    .chip { display: inline-flex; align-items: center; justify-content: center; height: 132px; min-width: 150px; padding: 0 34px; border-radius: 28px; font-weight: 900; font-size: 88px; color: #1e1650; box-shadow: 0 10px 0 rgba(8, 4, 30, 0.45); }
+    .g { background: #8bc34a; } .s { background: #f28b75; } .y { background: #ffc93c; }
+    .teal { color: #3cc8d8; } .coral { color: #ff7a6a; } .gold { color: #ffc93c; }
+    .arrow { display: inline-block; vertical-align: middle; }
+
+    #def-title-in { font-weight: 900; font-size: 176px; letter-spacing: 0.02em; color: #ffc93c; text-shadow: 0 10px 0 rgba(8, 4, 30, 0.45); }
+    #def-title-in .l { display: inline-block; }
+    .lab { position: absolute; white-space: nowrap; font-weight: 900; font-size: 46px; display: flex; align-items: center; gap: 14px; text-shadow: 0 5px 0 rgba(8, 4, 30, 0.5); }
+
+  </style>
+  <div id="root" data-composition-id="def" data-width="1080" data-height="1920" data-duration="11">
+
+    <div id="def-chip" class="clip abs" data-start="0" data-duration="10.9" style="top: 200px"><span id="def-chip-in" class="pill">BAB 1 · NOMBOR NISBAH</span></div>
+    <div id="def-title" class="clip abs" data-start="0" data-duration="10.9" style="top: 270px">
+      <div id="def-title-in"><span class="l">I</span><span class="l">N</span><span class="l">T</span><span class="l">E</span><span class="l">G</span><span class="l">E</span><span class="l">R</span></div>
+    </div>
+    <div id="def-text" class="clip abs" data-start="0" data-duration="10.9" style="top: 490px; left: 110px; right: 110px">
+      <div class="mid"><span id="def-text-w0" class="w ">Nombor</span> <span id="def-text-w1" class="w ">bulat</span> <span id="def-text-w2" class="w teal">positif</span> <span id="def-text-w3" class="w ">dan</span> <span id="def-text-w4" class="w coral">negatif,</span> <span id="def-text-w5" class="w ">termasuk</span> <span id="def-text-w6" class="w gold">sifar</span></div>
+    </div>
+    <div id="def-neg" class="clip" data-start="0" data-duration="10.9" style="position: absolute; left: 70px; top: 1120px">
+      <div id="def-neg-in" class="lab coral"><svg class="arrow" viewBox="0 0 100 60" width="70" height="42"><path d="M92 30H16M38 8L14 30l24 22" fill="none" stroke="currentColor" stroke-width="12" stroke-linecap="round" stroke-linejoin="round"/></svg><span>integer negatif</span></div>
+    </div>
+    <div id="def-pos" class="clip" data-start="0" data-duration="10.9" style="position: absolute; right: 70px; top: 1120px; width: 440px; height: 70px">
+      <div id="def-pos-in" class="lab teal" style="right: 0"><span>integer positif</span><svg class="arrow" viewBox="0 0 100 60" width="70" height="42"><path d="M8 30H84M62 8l24 22-24 22" fill="none" stroke="currentColor" stroke-width="12" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+    </div>
+    <div id="def-zero" class="clip abs" data-start="0" data-duration="10.9" style="top: 1215px">
+      <div id="def-zero-in" class="mid gold" style="font-weight: 900">0 = sifar</div>
+    </div>
+  </div>
+  <script>
+    (function () {
+      const tl = gsap.timeline({ paused: true });
+      const q = (s) => document.querySelectorAll(s);
+      // word-by-word blur in
+      const wordsIn = (sel, t, gap = 0.08) =>
+        tl.fromTo(sel, { opacity: 0, filter: "blur(8px)" }, { opacity: 1, filter: "blur(0px)", duration: 0.2, ease: "power4.out", stagger: gap }, t);
+      // a chip lands with a small spring
+      const chipIn = (sel, t) =>
+        tl.fromTo(sel, { opacity: 0, scale: 0.55, y: 40 }, { opacity: 1, scale: 1, y: 0, duration: 0.45, ease: "back.out(2.2)" }, t);
+      const out = (sel, t, d = 0.22) =>
+        tl.fromTo(sel, { opacity: 1, filter: "blur(0px)" }, { opacity: 0, filter: "blur(10px)", duration: d, ease: "power2.in", immediateRender: false }, t);
+
+      tl.fromTo("#def-chip-in", { opacity: 0, y: -20 }, { opacity: 1, y: 0, duration: 0.4, ease: "expo.out" }, 0.3);
+      tl.fromTo("#def-title-in .l", { opacity: 0.0, filter: "blur(10px)", y: 30 }, { opacity: 1, filter: "blur(0px)", y: 0, duration: 0.35, ease: "expo.out", stagger: 0.06 }, 0.6);
+      wordsIn("#def-text .w", 1.5, 0.1);
+      tl.fromTo("#def-neg-in", { opacity: 0, x: 60 }, { opacity: 1, x: 0, duration: 0.5, ease: "expo.out" }, 4.4);
+      tl.fromTo("#def-pos-in", { opacity: 0, x: -60 }, { opacity: 1, x: 0, duration: 0.5, ease: "expo.out" }, 6.4);
+      chipIn("#def-zero-in", 8.2);
+      out("#def-chip-in, #def-title-in, #def-text .mid, #def-neg-in, #def-pos-in, #def-zero-in", 10.35, 0.25);
+      window.__timelines["def"] = tl;
+    })();
+  </script>
+</template>

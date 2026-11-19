@@ -1,0 +1,48 @@
+<template>
+  <style>
+    #root { position: absolute; inset: 0; font-family: "Nunito", sans-serif; color: #ffffff; }
+    .abs { position: absolute; left: 60px; right: 60px; text-align: center; }
+    .pill { display: inline-block; padding: 14px 34px; border-radius: 999px; background: #2e2478; border: 3px solid #6f63d9; font-weight: 900; font-size: 36px; letter-spacing: 0.08em; color: #ffffff; }
+    .big { font-weight: 900; font-size: 112px; line-height: 1.04; letter-spacing: -0.01em; text-shadow: 0 8px 0 rgba(8, 4, 30, 0.45); }
+    .mid { font-weight: 800; font-size: 58px; line-height: 1.18; text-shadow: 0 5px 0 rgba(8, 4, 30, 0.45); }
+    .w { display: inline-block; }
+    .row { display: flex; justify-content: center; align-items: center; gap: 22px; }
+    .chip { display: inline-flex; align-items: center; justify-content: center; height: 132px; min-width: 150px; padding: 0 34px; border-radius: 28px; font-weight: 900; font-size: 88px; color: #1e1650; box-shadow: 0 10px 0 rgba(8, 4, 30, 0.45); }
+    .g { background: #8bc34a; } .s { background: #f28b75; } .y { background: #ffc93c; }
+    .teal { color: #3cc8d8; } .coral { color: #ff7a6a; } .gold { color: #ffc93c; }
+    .arrow { display: inline-block; vertical-align: middle; }
+
+    .q-num { color: #ffc93c; }
+
+  </style>
+  <div id="root" data-composition-id="hook" data-width="1080" data-height="1920" data-duration="6">
+
+    <div id="hook-kicker" class="clip abs" data-start="0" data-duration="5.9" style="top: 210px"><span class="pill">MATEMATIK TINGKATAN 1</span></div>
+    <div id="hook-q" class="clip abs" data-start="0" data-duration="5.9" style="top: 300px">
+      <div id="hook-q-in" class="big">Boleh ke<br /><span class="q-num">4 tolak 7</span>?</div>
+    </div>
+    <div id="hook-sub" class="clip abs" data-start="0" data-duration="5.9" style="top: 1150px">
+      <div class="mid"><span id="hook-sub-w0" class="w ">Jom</span> <span id="hook-sub-w1" class="w ">fahami</span> <span id="hook-sub-w2" class="w gold">INTEGER</span><br /><span id="hook-sub-w3" class="w ">guna</span> <span id="hook-sub-w4" class="w ">garis</span> <span id="hook-sub-w5" class="w ">nombor!</span></div>
+    </div>
+  </div>
+  <script>
+    (function () {
+      const tl = gsap.timeline({ paused: true });
+      const q = (s) => document.querySelectorAll(s);
+      // word-by-word blur in
+      const wordsIn = (sel, t, gap = 0.08) =>
+        tl.fromTo(sel, { opacity: 0, filter: "blur(8px)" }, { opacity: 1, filter: "blur(0px)", duration: 0.2, ease: "power4.out", stagger: gap }, t);
+      // a chip lands with a small spring
+      const chipIn = (sel, t) =>
+        tl.fromTo(sel, { opacity: 0, scale: 0.55, y: 40 }, { opacity: 1, scale: 1, y: 0, duration: 0.45, ease: "back.out(2.2)" }, t);
+      const out = (sel, t, d = 0.22) =>
+        tl.fromTo(sel, { opacity: 1, filter: "blur(0px)" }, { opacity: 0, filter: "blur(10px)", duration: d, ease: "power2.in", immediateRender: false }, t);
+
+      wordsIn("#hook-sub .w", 2.4, 0.09);
+      out("#hook-kicker .pill", 4.9);
+      out("#hook-q-in", 4.95);
+      out("#hook-sub .mid", 5.0);
+      window.__timelines["hook"] = tl;
+    })();
+  </script>
+</template>

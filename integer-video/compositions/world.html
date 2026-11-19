@@ -1,0 +1,542 @@
+<template>
+  <style>
+    #root {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+      background: #1e1650;
+    }
+    #world-canvas {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 1080px;
+      height: 1920px;
+    }
+    #world-fontprobe {
+      position: absolute;
+      left: 0;
+      top: 0;
+      opacity: 0;
+      font-family: "Nunito", sans-serif;
+      font-weight: 900;
+      font-size: 20px;
+    }
+  </style>
+  <div id="root" data-composition-id="world" data-width="1080" data-height="1920" data-duration="60">
+    <canvas id="world-canvas" width="1080" height="1920" data-layout-ignore></canvas>
+    <span id="world-fontprobe" data-layout-ignore>−0123456789+=?</span>
+  </div>
+  <script>
+    (function () {
+      // ---------- shared timing (seconds, root time) ----------
+      // Every number below is mirrored in the scene files' chip timings.
+      const EX = [
+        { n0: -3, dir: 1, k: 7, tDrop: 26.0, tHop: 27.2, hop: 0.6, tEnd: 32.8 }, // -3 + 7 = 4
+        { n0: -5, dir: 1, k: 3, tDrop: 33.3, tHop: 34.3, hop: 0.6, tEnd: 38.5 }, // -5 + 3 = -2
+        { n0: 4, dir: -1, k: 7, tDrop: 40.0, tHop: 41.2, hop: 0.6, tEnd: 47.8 }, // 4 - 7 = -3
+        { n0: -1, dir: -1, k: 4, tDrop: 48.4, tHop: 49.4, hop: 0.6, tEnd: 53.0 }, // -1 - 4 = -5
+      ];
+
+      const C = {
+        bg: "#1e1650",
+        floor: "#271d68",
+        cream: "#fff6e6",
+        ink: "#1e1650",
+        green: "#8bc34a",
+        salmon: "#f28b75",
+        yellow: "#ffc93c",
+        coral: "#ff6b5a",
+        teal: "#3cc8d8",
+        pink: "#ff4fa3",
+        violet: "#8f7cff",
+      };
+
+      // ---------- helpers ----------
+      const clamp = (v, a = 0, b = 1) => Math.min(b, Math.max(a, v));
+      const prog = (t, a, d) => clamp((t - a) / d);
+      const eOutCubic = (p) => 1 - Math.pow(1 - p, 3);
+      const eInCubic = (p) => p * p * p;
+      const eInOut = (p) => (p < 0.5 ? 4 * p * p * p : 1 - Math.pow(-2 * p + 2, 3) / 2);
+      const eOutBack = (p) => {
+        const c1 = 1.70158, c3 = c1 + 1;
+        return 1 + c3 * Math.pow(p - 1, 3) + c1 * Math.pow(p - 1, 2);
+      };
+      const eOutBounce = (p) => {
+        const n1 = 7.5625, d1 = 2.75;
+        if (p < 1 / d1) return n1 * p * p;
+        if (p < 2 / d1) return n1 * (p -= 1.5 / d1) * p + 0.75;
+        if (p < 2.5 / d1) return n1 * (p -= 2.25 / d1) * p + 0.9375;
+        return n1 * (p -= 2.625 / d1) * p + 0.984375;
+      };
+      const bump = (t, a, d) => {
+        const p = (t - a) / d;
+        return p <= 0 || p >= 1 ? 0 : Math.sin(Math.PI * p);
+      };
+      // a window that fades in over fi and out over fo
+      const win = (t, a, b, fi = 0.3, fo = 0.3) => Math.min(prog(t, a, fi), 1 - prog(t, b - fo, fo));
+      function mulberry32(a) {
+        return function () {
+          a |= 0; a = (a + 0x6d2b79f5) | 0;
+          let t = Math.imul(a ^ (a >>> 15), 1 | a);
+          t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+          return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+        };
+      }
+
+      let ready = false;
+      let lastT = 0;
+      let renderAt = () => {};
+
+      async function build() {
+        await document.fonts.load('900 150px "Nunito"', "−0123456789+=?");
+        await document.fonts.ready;
+
+        const W = 1080, H = 1920;
+        const canvas = document.getElementById("world-canvas");
+        const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, preserveDrawingBuffer: true });
+        renderer.setPixelRatio(1);
+        renderer.setSize(W, H, false);
+        renderer.outputColorSpace = THREE.SRGBColorSpace;
+        renderer.toneMapping = THREE.ACESFilmicToneMapping;
+        renderer.toneMappingExposure = 1.05;
+
+        const scene = new THREE.Scene();
+        scene.background = new THREE.Color(C.bg);
+        scene.fog = new THREE.Fog(C.bg, 34, 80);
+        const camera = new THREE.PerspectiveCamera(40, W / H, 0.1, 200);
+
+        // lights: warm key, cool rim, soft sky
+        scene.add(new THREE.HemisphereLight("#c9d2ff", "#2a1f66", 1.0));
+        const key = new THREE.DirectionalLight("#fff0d8", 2.1);
+        key.position.set(-6, 12, 10);
+        scene.add(key);
+        const rim = new THREE.DirectionalLight("#7fd6ff", 1.3);
+        rim.position.set(7, 6, -10);
+        scene.add(rim);
+
+        // floor + grid
+        const floor = new THREE.Mesh(
+          new THREE.PlaneGeometry(240, 240),
+          new THREE.MeshStandardMaterial({ color: C.floor, roughness: 0.95, metalness: 0 })
+        );
+        floor.rotation.x = -Math.PI / 2;
+        scene.add(floor);
+        const grid = new THREE.GridHelper(120, 120, "#4b3fae", "#3a2f8c");
+        grid.position.y = 0.002;
+        grid.material.transparent = true;
+        grid.material.opacity = 0.55;
+        scene.add(grid);
+
+        // ---------- textures ----------
+        function roundRect(g, x, y, w, h, r) {
+          g.beginPath();
+          g.moveTo(x + r, y);
+          g.arcTo(x + w, y, x + w, y + h, r);
+          g.arcTo(x + w, y + h, x, y + h, r);
+          g.arcTo(x, y + h, x, y, r);
+          g.arcTo(x, y, x + w, y, r);
+          g.closePath();
+        }
+        function labelTex(text, ink, bg, opts = {}) {
+          const w = opts.w || 256, h = opts.h || 256;
+          const c = document.createElement("canvas");
+          c.width = w; c.height = h;
+          const g = c.getContext("2d");
+          if (opts.pill) {
+            g.clearRect(0, 0, w, h);
+            g.fillStyle = bg;
+            roundRect(g, 6, 6, w - 12, h - 12, (h - 12) / 2.6);
+            g.fill();
+          } else {
+            g.fillStyle = bg;
+            g.fillRect(0, 0, w, h);
+          }
+          g.fillStyle = ink;
+          const size = opts.size || 150;
+          g.font = `900 ${size}px "Nunito"`;
+          g.textAlign = "center";
+          g.textBaseline = "middle";
+          g.fillText(text, w / 2, h / 2 + size * 0.06);
+          const t = new THREE.CanvasTexture(c);
+          t.colorSpace = THREE.SRGBColorSpace;
+          t.anisotropy = 8;
+          return t;
+        }
+        function blobTex() {
+          const c = document.createElement("canvas");
+          c.width = c.height = 128;
+          const g = c.getContext("2d");
+          const gr = g.createRadialGradient(64, 64, 4, 64, 64, 62);
+          gr.addColorStop(0, "rgba(5,2,20,0.75)");
+          gr.addColorStop(1, "rgba(5,2,20,0)");
+          g.fillStyle = gr;
+          g.fillRect(0, 0, 128, 128);
+          return new THREE.CanvasTexture(c);
+        }
+        function padTex() {
+          const c = document.createElement("canvas");
+          c.width = c.height = 128;
+          const g = c.getContext("2d");
+          const gr = g.createRadialGradient(64, 64, 10, 64, 64, 62);
+          gr.addColorStop(0, "rgba(255,255,255,1)");
+          gr.addColorStop(0.55, "rgba(255,255,255,0.55)");
+          gr.addColorStop(1, "rgba(255,255,255,0)");
+          g.fillStyle = gr;
+          g.fillRect(0, 0, 128, 128);
+          return new THREE.CanvasTexture(c);
+        }
+        const BLOB = blobTex();
+        const PAD = padTex();
+        function blob(size) {
+          const m = new THREE.Mesh(
+            new THREE.PlaneGeometry(size, size),
+            new THREE.MeshBasicMaterial({ map: BLOB, transparent: true, depthWrite: false })
+          );
+          m.rotation.x = -Math.PI / 2;
+          m.position.y = 0.004;
+          return m;
+        }
+        function pad(size) {
+          const m = new THREE.Mesh(
+            new THREE.PlaneGeometry(size, size),
+            new THREE.MeshBasicMaterial({ map: PAD, transparent: true, depthWrite: false, opacity: 0, blending: THREE.AdditiveBlending })
+          );
+          m.rotation.x = -Math.PI / 2;
+          m.position.y = 0.006;
+          return m;
+        }
+
+        // ---------- number line ----------
+        const TILE = 0.84, TDEPTH = 0.5;
+        const tiles = {};
+        const lineGroup = new THREE.Group();
+        scene.add(lineGroup);
+        for (let n = -5; n <= 5; n++) {
+          const numInk = n < 0 ? "#e0412f" : n > 0 ? "#0f8fa0" : C.ink;
+          const label = n < 0 ? "−" + Math.abs(n) : String(n);
+          const body = new THREE.MeshStandardMaterial({ color: C.cream, roughness: 0.45, metalness: 0.02, emissive: new THREE.Color("#000000") });
+          const front = new THREE.MeshStandardMaterial({ map: labelTex(label, numInk, C.cream, { size: n < 0 ? 158 : 180 }), roughness: 0.45 });
+          const mesh = new THREE.Mesh(new THREE.BoxGeometry(TILE, TILE, TDEPTH), [body, body, body, body, front, body]);
+          const colMat = new THREE.MeshStandardMaterial({ color: n < 0 ? C.coral : n > 0 ? C.teal : C.yellow, roughness: 0.5 });
+          const col = new THREE.Mesh(new THREE.BoxGeometry(TILE * 0.92, 1, TDEPTH * 0.92), colMat);
+          const sh = blob(1.5);
+          const glow = pad(1.9);
+          sh.position.x = glow.position.x = n;
+          lineGroup.add(mesh, col, sh, glow);
+          tiles[n] = { mesh, body, col, sh, glow };
+        }
+        const rodMat = new THREE.MeshStandardMaterial({ color: "#f4f1ff", roughness: 0.35 });
+        const rod = new THREE.Mesh(new THREE.CylinderGeometry(0.045, 0.045, 11.1, 20), rodMat);
+        rod.rotation.z = Math.PI / 2;
+        rod.position.set(0, 0.06, 0.48);
+        lineGroup.add(rod);
+        const coneR = new THREE.Mesh(new THREE.ConeGeometry(0.15, 0.4, 24), rodMat);
+        coneR.rotation.z = -Math.PI / 2;
+        const coneL = new THREE.Mesh(new THREE.ConeGeometry(0.15, 0.4, 24), rodMat);
+        coneL.rotation.z = Math.PI / 2;
+        lineGroup.add(coneR, coneL);
+
+        // ---------- hook cubes: 4 − 7 = ? ----------
+        const hookDefs = [
+          { s: "4", bg: C.green },
+          { s: "−", bg: C.salmon },
+          { s: "7", bg: C.salmon },
+          { s: "=", bg: C.cream },
+          { s: "?", bg: C.yellow },
+        ];
+        const hook = hookDefs.map((d, i) => {
+          const tex = labelTex(d.s, C.ink, d.bg, { size: 170 });
+          const mat = new THREE.MeshStandardMaterial({ map: tex, roughness: 0.4 });
+          const m = new THREE.Mesh(new THREE.BoxGeometry(0.86, 0.86, 0.86), mat);
+          const sh = blob(1.4);
+          scene.add(m, sh);
+          return { m, sh, x: (i - 2) * 1.0 };
+        });
+
+        // ---------- the hopping ball ----------
+        const ball = new THREE.Mesh(
+          new THREE.SphereGeometry(0.26, 48, 32),
+          new THREE.MeshStandardMaterial({ color: C.pink, roughness: 0.28, metalness: 0.05, emissive: new THREE.Color("#3a0020") })
+        );
+        const ballSh = blob(0.9);
+        scene.add(ball, ballSh);
+        const REST = TILE + 0.26; // ball centre resting on a tile top
+        const HOPH = 1.1;
+
+        // ---------- arcs and counters for each worked example ----------
+        const arcMat = new THREE.MeshStandardMaterial({ color: C.coral, roughness: 0.4, emissive: new THREE.Color("#5a1208"), transparent: true });
+        const TUB = 40, RAD = 10;
+        EX.forEach((ex) => {
+          ex.arcs = [];
+          ex.tags = [];
+          ex.nEnd = ex.n0 + ex.dir * ex.k;
+          ex.tLand = ex.tHop + ex.hop * ex.k;
+          for (let j = 0; j < ex.k; j++) {
+            const xa = ex.n0 + ex.dir * j, xb = xa + ex.dir;
+            const pts = [];
+            for (let s = 0; s <= 24; s++) {
+              const u = s / 24;
+              pts.push(new THREE.Vector3(xa + (xb - xa) * u, REST + HOPH * 4 * u * (1 - u), -0.34));
+            }
+            const geo = new THREE.TubeGeometry(new THREE.CatmullRomCurve3(pts), TUB, 0.04, RAD, false);
+            const mesh = new THREE.Mesh(geo, arcMat.clone());
+            mesh.visible = false;
+            scene.add(mesh);
+            ex.arcs.push(mesh);
+            const sign = ex.dir > 0 ? "+" : "−";
+            const tag = new THREE.Sprite(
+              new THREE.SpriteMaterial({ map: labelTex(sign + (j + 1), "#3a0f0a", C.salmon, { w: 256, h: 160, size: 104, pill: true }), transparent: true, depthWrite: false })
+            );
+            tag.position.set((xa + xb) / 2, REST + HOPH + 0.62, -0.34);
+            tag.visible = false;
+            scene.add(tag);
+            ex.tags.push(tag);
+          }
+        });
+
+        // ---------- background decor: floating math shapes ----------
+        const rnd = mulberry32(20261119);
+        const decor = [];
+        const decoColors = [C.violet, C.teal, C.salmon, C.yellow, C.green, C.pink];
+        for (let i = 0; i < 22; i++) {
+          const kind = i % 4;
+          const mat = new THREE.MeshStandardMaterial({ color: decoColors[i % decoColors.length], roughness: 0.5, emissive: new THREE.Color(decoColors[i % decoColors.length]).multiplyScalar(0.12) });
+          let obj;
+          if (kind === 0) {
+            obj = new THREE.Group();
+            obj.add(new THREE.Mesh(new THREE.BoxGeometry(1.2, 0.34, 0.34), mat));
+            obj.add(new THREE.Mesh(new THREE.BoxGeometry(0.34, 1.2, 0.34), mat));
+          } else if (kind === 1) {
+            obj = new THREE.Mesh(new THREE.BoxGeometry(1.2, 0.34, 0.34), mat);
+          } else if (kind === 2) {
+            obj = new THREE.Mesh(new THREE.TorusGeometry(0.5, 0.17, 16, 40), mat);
+          } else {
+            obj = new THREE.Mesh(new THREE.BoxGeometry(0.7, 0.7, 0.7), mat);
+          }
+          const side = i % 2 === 0 ? -1 : 1;
+          obj.userData = {
+            x: side * (7 + rnd() * 14),
+            y: 2.5 + rnd() * 13,
+            z: -8 - rnd() * 26,
+            rx: (rnd() - 0.5) * 0.9,
+            ry: (rnd() - 0.5) * 0.9,
+            ph: rnd() * 6.28,
+            s: 0.8 + rnd() * 1.1,
+          };
+          obj.scale.setScalar(obj.userData.s);
+          scene.add(obj);
+          decor.push(obj);
+        }
+
+        // ---------- camera path ----------
+        const P = (px, py, pz, tx, ty, tz) => ({ p: new THREE.Vector3(px, py, pz), q: new THREE.Vector3(tx, ty, tz) });
+        const KEYS = [
+          [0.0, P(0, 2.4, 14.2, 0, 1.5, 0)],
+          [4.6, P(0, 2.7, 13.4, 0, 1.5, 0)],
+          [6.6, P(0, 5.4, 28.0, 0, 0.5, 0)],
+          [16.6, P(0.4, 5.6, 27.5, 0, 0.5, 0)],
+          [18.8, P(-8.5, 6.6, 22.5, 0.6, 1.5, 0)],
+          [24.4, P(-7.4, 6.3, 23.2, 0.6, 1.5, 0)],
+          [25.9, P(0.5, 4.9, 23.6, 0.5, 0.8, 0)],
+          [32.6, P(0.5, 4.7, 23.0, 0.5, 0.8, 0)],
+          [33.7, P(-3.5, 4.0, 14.6, -3.5, 0.8, 0)],
+          [38.4, P(-3.5, 3.9, 14.0, -3.5, 0.8, 0)],
+          [40.0, P(0.5, 4.9, 23.6, 0.5, 0.8, 0)],
+          [47.6, P(0.5, 4.7, 23.0, 0.5, 0.8, 0)],
+          [48.7, P(-3.0, 4.0, 15.0, -3.0, 0.8, 0)],
+          [52.7, P(-3.0, 3.9, 14.4, -3.0, 0.8, 0)],
+          [54.6, P(0, 7.2, 28.0, 0, 0.3, 0)],
+          [60.0, P(0.4, 7.5, 28.6, 0, 0.3, 0)],
+        ];
+        const tmpP = new THREE.Vector3(), tmpQ = new THREE.Vector3();
+        function cameraAt(t) {
+          let i = 0;
+          while (i < KEYS.length - 2 && t >= KEYS[i + 1][0]) i++;
+          const [ta, A] = KEYS[i], [tb, B] = KEYS[i + 1];
+          const span = tb - ta;
+          // long holds drift linearly; short spans are camera moves with an in-out ease
+          const p = clamp((t - ta) / span);
+          const e = span > 3 ? p : eInOut(p);
+          tmpP.lerpVectors(A.p, B.p, e);
+          tmpQ.lerpVectors(A.q, B.q, e);
+          camera.position.copy(tmpP);
+          camera.lookAt(tmpQ);
+        }
+
+        // ---------- the frame at time t ----------
+        renderAt = function (t) {
+          cameraAt(t);
+
+          // decor drifts and turns (linear rotation)
+          for (const o of decor) {
+            const u = o.userData;
+            o.position.set(u.x, u.y + 0.25 * Math.sin(t * 0.5 + u.ph), u.z);
+            o.rotation.set(u.ph + t * u.rx, u.ph * 0.5 + t * u.ry, 0);
+          }
+
+          // hook cubes
+          hook.forEach((h, i) => {
+            const tin = 0.15 + i * 0.12;
+            const pin = prog(t, tin, 0.7);
+            const pout = prog(t, 4.75 + i * 0.05, 0.75);
+            const visible = t >= tin && pout < 1;
+            h.m.visible = h.sh.visible = visible;
+            if (!visible) return;
+            const land = eOutBack(pin);
+            let y = 1.6 + (1 - land) * 5.5;
+            let rx = (1 - eOutCubic(pin)) * Math.PI * 2;
+            let ry = 0;
+            let s = 1;
+            if (i === 4) {
+              const sp = eInOut(prog(t, 2.55, 0.7));
+              ry = sp * Math.PI * 2;
+              s = 1 + 0.25 * bump(t, 2.55, 0.7);
+            }
+            // exit: scatter outward and up, spinning
+            const eo = eInCubic(pout);
+            const x = h.x + (h.x === 0 ? 0.0 : Math.sign(h.x) * eo * 6);
+            y += eo * 7;
+            rx += eo * 4;
+            ry += eo * (i % 2 ? -3 : 3);
+            h.m.position.set(x, y, 0);
+            h.m.rotation.set(rx, ry, 0);
+            h.m.scale.setScalar(s * (1 - 0.6 * eo));
+            h.sh.position.set(x, 0.004, 0);
+            h.sh.material.opacity = clamp(1 - (y - 1.6) / 4) * (1 - eo);
+          });
+
+          // number line build
+          const rodP = eOutCubic(prog(t, 6.5, 0.9));
+          rod.visible = coneL.visible = coneR.visible = rodP > 0.001;
+          rod.scale.y = Math.max(0.001, rodP);
+          coneR.position.set(5.55 * rodP + 0.2, 0.06, 0.48);
+          coneL.position.set(-5.55 * rodP - 0.2, 0.06, 0.48);
+
+          for (let n = -5; n <= 5; n++) {
+            const T = tiles[n];
+            const tin = 6.9 + Math.abs(n) * 0.2 + (n < 0 ? 0.08 : 0);
+            const pin = prog(t, tin, 0.55);
+            const vis = t >= tin;
+            T.mesh.visible = T.sh.visible = vis;
+            T.glow.visible = vis;
+            if (!vis) { T.col.visible = false; continue; }
+            let y = TILE / 2 + (1 - eOutBack(pin)) * 4.5;
+
+            // staircase: column height grows with the value (left small, right big)
+            const ci = n + 5;
+            const up = eOutBack(prog(t, 17.7 + ci * 0.12, 0.7));
+            const down = eInCubic(prog(t, 24.3, 0.6));
+            const colH = 0.32 * (n + 6) * up * (1 - down);
+            T.col.visible = colH > 0.01;
+            T.col.scale.y = Math.max(0.001, colH);
+            T.col.position.set(n, colH / 2, 0);
+            y += colH;
+
+            // presses from the ball landing on this tile
+            let dip = 0;
+            for (const ex of EX) {
+              if (n === ex.n0) dip += 0.1 * bump(t, ex.tDrop + 0.42, 0.25);
+              for (let j = 0; j < ex.k; j++) {
+                const nn = ex.n0 + ex.dir * (j + 1);
+                if (nn === n) dip += 0.1 * bump(t, ex.tHop + ex.hop * (j + 1) - 0.02, 0.24);
+              }
+            }
+
+            // highlights: colour of the glow pad and lift
+            let glowCol = null, glowA = 0, lift = 0;
+            const set = (col, a, l) => { if (a > glowA) { glowA = a; glowCol = col; } lift = Math.max(lift, l * a); };
+            if (n < 0) set(C.coral, win(t, 10.4, 16.8, 0.4, 0.4), 0.2);
+            if (n > 0) set(C.teal, win(t, 12.4, 16.8, 0.4, 0.4), 0.2);
+            if (n === 0) set(C.yellow, win(t, 14.2, 16.8, 0.4, 0.4), 0.2);
+            if (n === -5) set(C.coral, win(t, 22.0, 24.3, 0.3, 0.3), 0);
+            if (n === 5) set(C.teal, win(t, 22.6, 24.3, 0.3, 0.3), 0);
+            for (const ex of EX) {
+              if (n === ex.n0) set(C.green, win(t, ex.tDrop + 0.45, ex.tEnd, 0.25, 0.35), 0.0);
+              if (n === ex.nEnd) set(C.yellow, win(t, ex.tLand, ex.tEnd, 0.2, 0.35), 0.0);
+            }
+            // closing waves: rightward for addition, leftward for subtraction
+            const w1 = bump(t, 54.0 + (n + 5) * 0.08, 0.45);
+            const w2 = bump(t, 55.0 + (5 - n) * 0.08, 0.45);
+            if (w1 > 0) set(C.teal, w1, 0.5);
+            if (w2 > 0) set(C.coral, w2, 0.5);
+
+            y += lift - dip;
+            T.mesh.position.set(n, y, 0);
+            T.glow.material.opacity = glowA * 0.95;
+            if (glowCol) T.glow.material.color.set(glowCol);
+            T.body.color.set(C.cream);
+            if (glowCol && glowA > 0.01) T.body.color.lerp(new THREE.Color(glowCol), glowA * 0.85);
+            T.sh.material.opacity = clamp(1 - (y - TILE / 2 - colH) / 3);
+          }
+
+          // ball + arcs + counters
+          let shown = false;
+          for (const ex of EX) {
+            const active = t >= ex.tDrop && t < ex.tEnd;
+            const fade = 1 - prog(t, ex.tEnd - 0.35, 0.35);
+            ex.arcs.forEach((a, j) => {
+              const ts = ex.tHop + ex.hop * j;
+              const p = prog(t, ts, ex.hop);
+              a.visible = active && p > 0;
+              if (!a.visible) return;
+              const segs = Math.max(1, Math.round(p * TUB));
+              a.geometry.setDrawRange(0, segs * RAD * 6);
+              a.material.opacity = fade;
+            });
+            ex.tags.forEach((g, j) => {
+              const ts = ex.tHop + ex.hop * (j + 0.45);
+              const p = prog(t, ts, 0.3);
+              g.visible = active && p > 0;
+              if (!g.visible) return;
+              const s = 0.62 * eOutBack(p) * fade;
+              g.scale.set(s, s * 0.625, 1);
+              g.material.opacity = fade;
+            });
+            if (!active) continue;
+            shown = true;
+            let x = ex.n0, y = REST, sq = 1;
+            const pd = prog(t, ex.tDrop, 0.6);
+            if (t < ex.tHop) {
+              y = REST + (1 - eOutBounce(pd)) * 6;
+            } else if (t < ex.tLand) {
+              const f = (t - ex.tHop) / ex.hop;
+              const j = Math.floor(f), u = f - j;
+              x = ex.n0 + ex.dir * (j + u);
+              y = REST + HOPH * 4 * u * (1 - u);
+              sq = 1 - 0.18 * (bump(u, 0, 0.12) + bump(u, 0.9, 0.1));
+            } else {
+              x = ex.nEnd;
+              sq = 1 - 0.18 * bump(t, ex.tLand, 0.2);
+            }
+            const sOut = 1 - eInCubic(prog(t, ex.tEnd - 0.35, 0.35));
+            ball.position.set(x, y - (1 - sq) * 0.26, 0);
+            ball.scale.set(sOut * (2 - sq), sOut * sq, sOut * (2 - sq));
+            ballSh.position.set(x, TILE + 0.006, 0);
+            ballSh.material.opacity = clamp(1 - (y - REST) / 3) * sOut;
+            // the shadow sits on the tiles' tops, floor when over a gap is fine
+          }
+          ball.visible = ballSh.visible = shown;
+
+          renderer.render(scene, camera);
+        };
+
+        ready = true;
+        renderAt(lastT);
+      }
+
+      window.__hf = window.__hf || {};
+      window.__hf.buildReady = window.__hf.buildReady || {};
+      window.__hf.buildReady.world = build();
+
+      window.addEventListener("hf-seek", (e) => {
+        lastT = e.detail.time;
+        if (ready) renderAt(lastT);
+      });
+
+      const tl = gsap.timeline({ paused: true });
+      tl.set({}, {}, 60);
+      window.__timelines["world"] = tl;
+    })();
+  </script>
+</template>
