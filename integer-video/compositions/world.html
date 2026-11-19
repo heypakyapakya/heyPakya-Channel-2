@@ -447,10 +447,10 @@
             let glowCol = null, glowA = 0, lift = 0;
             const set = (col, a, l) => { if (a > glowA) { glowA = a; glowCol = col; } lift = Math.max(lift, l * a); };
             if (n < 0) set(C.coral, win(t, 10.4, 16.8, 0.4, 0.4), 0.2);
-            if (n > 0) set(C.teal, win(t, 12.4, 16.8, 0.4, 0.4), 0.2);
-            if (n === 0) set(C.yellow, win(t, 14.2, 16.8, 0.4, 0.4), 0.2);
+            if (n > 0) set(C.teal, win(t, 12.55, 16.8, 0.4, 0.4), 0.2);
+            if (n === 0) set(C.yellow, win(t, 14.9, 16.8, 0.4, 0.4), 0.2);
             if (n === -5) set(C.coral, win(t, 22.0, 24.3, 0.3, 0.3), 0);
-            if (n === 5) set(C.teal, win(t, 22.6, 24.3, 0.3, 0.3), 0);
+            if (n === 5) set(C.teal, win(t, 23.5, 24.3, 0.3, 0.3), 0);
             for (const ex of EX) {
               if (n === ex.n0) set(C.green, win(t, ex.tDrop + 0.45, ex.tEnd, 0.25, 0.35), 0.0);
               if (n === ex.nEnd) set(C.yellow, win(t, ex.tLand, ex.tEnd, 0.2, 0.35), 0.0);

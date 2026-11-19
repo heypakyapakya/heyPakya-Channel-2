@@ -26,12 +26,12 @@ add(4.75, "whoosh.mp3", 0.8)
 for a in range(6):
     add(6.9 + a * 0.2 + 0.3, "key-press.mp3" if a % 2 else "click-soft.mp3", 0.55)
 # labels
-for t in (10.45, 12.45, 14.25): add(t, "pop.mp3", 0.6)
+for t in (10.45, 12.6, 14.95): add(t, "pop.mp3", 0.6)
 add(16.85, "whoosh-short.mp3", 0.7)
 # staircase: a tick as each column tops out
 for ci in range(11):
     add(17.7 + ci * 0.12 + 0.45, "click-soft.mp3" if ci % 2 else "key-press.mp3", 0.45)
-add(22.05, "pop.mp3", 0.6); add(22.65, "pop.mp3", 0.6)
+add(22.1, "pop.mp3", 0.6); add(23.55, "pop.mp3", 0.6)
 add(24.85, "whoosh.mp3", 0.75)
 # worked examples
 CHIP_POPS = [26.6, 27.3, 33.7, 34.3, 40.6, 41.2, 48.7, 49.3]
@@ -52,6 +52,7 @@ add(52.85, "whoosh.mp3", 0.75)
 # recap
 add(54.05, "pop.mp3", 0.6); add(55.05, "pop.mp3", 0.6); add(55.85, "chime.mp3", 0.7)
 
+sfx = [(t, f, round(v * 0.8, 2), x) for t, f, v, x in sfx]  # sit under the voice
 sfx.sort()
 import subprocess
 def dur(f):
@@ -69,6 +70,21 @@ for t, f, v, x in sfx:
     else:
         lanes_end.append(t + d); lane = len(lanes_end) - 1
     placed.append((t, f, v, x, round(d, 3), lane + 2))
+# ---- voiceover (Aisyah, ElevenLabs) and music bed ----
+VO = [("01", 0.25), ("02", 2.45), ("03", 6.3), ("04", 10.45), ("05", 12.55), ("06", 14.9),
+      ("07", 17.3), ("08", 19.85), ("09", 22.05), ("10", 25.3), ("11", 27.5), ("12", 31.45),
+      ("13", 33.5), ("14", 39.3), ("15", 41.3), ("16", 45.45), ("17", 48.6), ("18", 53.4)]
+def vdur(n):
+    o = subprocess.run(["ffprobe","-v","error","-show_entries","format=duration","-of","csv=p=0",os.path.join(HERE,"..","assets","voice",f"v{n}.wav")],capture_output=True,text=True).stdout
+    return round(float(o) - 0.01, 3) if o.strip() else None
+voice = []
+for i, (n, t) in enumerate(VO):
+    d = vdur(n)
+    if d is None: print("missing voice", n); continue
+    nxt = VO[i + 1][1] if i + 1 < len(VO) else DUR
+    if t + d > nxt: print(f"WARN v{n} {t}+{d}={t+d:.2f} overlaps next at {nxt}")
+    voice.append(f'      <audio id="vo-{n}" class="clip" src="assets/voice/v{n}.wav" data-start="{t}" data-duration="{min(d, DUR - t)}" data-track-index="8" data-volume="1"></audio>')
+music = '      <audio id="music" class="clip" src="assets/audio/music.mp3" data-start="0" data-duration="60" data-track-index="9" data-volume="0.16" data-fade-out="1.5"></audio>'
 hosts = "\n".join(
     f'      <div id="{sid}" data-composition-id="{sid}" data-composition-src="compositions/{sid}.html" '
     f'data-start="{s}" data-duration="{d}" data-track-index="1" data-track-kind="graphics" '
@@ -102,6 +118,8 @@ html = f"""<!doctype html>
       <div id="world" data-composition-id="world" data-composition-src="compositions/world.html" data-start="0" data-duration="{DUR}" data-track-index="0" data-track-kind="graphics" data-width="{W}" data-height="{H}" style="z-index:1"></div>
 {hosts}
 {audio}
+{chr(10).join(voice)}
+{music}
     </div>
     <script>
       window.__timelines = window.__timelines || {{}};
